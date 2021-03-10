@@ -1,1 +1,16 @@
-<p>car-details works!</p>
+<button (click)="goBack()">go back</button>
+<div *ngIf="car">
+  <p>car-details works!</p>
+  <!-- When hero is undefined, the ngIf removes the hero detail from the DOM.
+There are no selectedHero bindings to consider.-->
+  <h2>{{ car.carName | uppercase }} Details</h2>
+  <div>
+    <label>Car Name: {{car.carName}}</label> <br />
+    <label>Number of Wheels: {{car.nWheels}}</label> <br />
+    <label>Rate Per Hour: {{car.ratePerHour}}</label> <br />
+    <label>Is Rented: {{car.isRented}}</label> <br />
+    <label>Date Rented: {{car.dateRented.toDateString()}}</label> <br />
+    <label>Date Returned: {{car.dateReturned.toDateString()}}</label> <br />
+    <label>Date Rented: {{car.dateRented.toDateString()}}</label> <br />
+  </div>
+</div>

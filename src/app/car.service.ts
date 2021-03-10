@@ -11,25 +11,25 @@ export class CarService {
   private cars: Car[] = [
     {
       carId: 1,
-      carName: '',
+      carName: 'Temp Car 1',
       imgUrl: '',
       isRented: false,
       nWheels: 4,
       ratePerHr: 1,
-      dateDeadline: Date(),
-      dateRented: Date(),
-      dateReturned: Date(),
+      dateDeadline: new Date(Date.now()),
+      dateRented: new Date(Date.now()),
+      dateReturned: new Date(Date.now()),
     },
     {
       carId: 2,
-      carName: '',
+      carName: 'Temp Car 2',
       imgUrl: '',
       isRented: false,
       nWheels: 4,
       ratePerHr: 1,
-      dateDeadline: Date(),
-      dateRented: Date(),
-      dateReturned: Date(),
+      dateDeadline: new Date(Date.now()),
+      dateRented: new Date(Date.now()),
+      dateReturned: new Date(Date.now()),
     },
   ];
 
@@ -38,7 +38,7 @@ export class CarService {
   }
 
   getCarById(carId: number){
-    this.cars.find((car) => car.carId = carId);
+    return this.cars.find((car) => car.carId == carId);
   }
 
   addCar(newCar: Car){

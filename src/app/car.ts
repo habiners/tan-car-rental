@@ -8,11 +8,11 @@ export interface Car {
   isRented: boolean;
   imgUrl: string;
 
-  dateRented: String;
-  dateReturned: String;
-  dateDeadline: String;
+  // dateRented?: String;
+  // dateReturned?: String;
+  // dateDeadline?: String;
 
-  // dateRented: Date;
-  // dateReturned: Date;
-  // dateDeadline: Date;
+  dateRented: Date;
+  dateReturned: Date;
+  dateDeadline: Date;
 }
