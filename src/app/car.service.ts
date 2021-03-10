@@ -17,7 +17,7 @@ export class CarService {
         'https://upload.wikimedia.org/wikipedia/commons/0/06/Nissan_Skyline_GT-R_R34_V_Spec_II.jpg',
       isRented: false,
       nWheels: 4,
-      ratePerHr: 1,
+      ratePerHr: 9800,
       dateDeadline: new Date(Date.now()),
       dateRented: new Date(Date.now()),
       dateReturned: new Date(Date.now()),
@@ -29,7 +29,7 @@ export class CarService {
         'https://cnet3.cbsistatic.com/img/3vwkGb5WITg4dttXkrXYps_kyFg=/1240x775/2020/09/30/3bbaa877-fd32-45dc-84c2-2c685adef434/2020-ford-mustang-shelby-gt350-heritage-edition-3.jpg',
       isRented: false,
       nWheels: 4,
-      ratePerHr: 1,
+      ratePerHr: 1000,
       dateDeadline: new Date(Date.now()),
       dateRented: new Date(Date.now()),
       dateReturned: new Date(Date.now()),
@@ -41,7 +41,19 @@ export class CarService {
         'https://s3.amazonaws.com/toyota-cms-media/wp-content/uploads/2019/03/2020_Supra_LaunchEdition_01_DA98A3EF24330A1E359D4DA496D4CF667DC03BAE-1500x1000.jpg',
       isRented: true,
       nWheels: 4,
-      ratePerHr: 1,
+      ratePerHr: 500,
+      dateDeadline: new Date(Date.now()),
+      dateRented: new Date(Date.now()),
+      dateReturned: new Date(Date.now()),
+    },
+    {
+      carId: 4,
+      carName: 'Lightning McQueen',
+      imgUrl:
+        'https://static.wikia.nocookie.net/disney/images/4/46/Profile_-_Lightning_McQueen.jpg',
+      isRented: true,
+      nWheels: 4,
+      ratePerHr: 100000000,
       dateDeadline: new Date(Date.now()),
       dateRented: new Date(Date.now()),
       dateReturned: new Date(Date.now()),
@@ -50,6 +62,9 @@ export class CarService {
 
   addCar(newCar: Car) {
     this.cars.push(newCar);
+  }
+  getNewCarId(): number{
+    return this.cars.length + 1;
   }
   getCarById(carId: number): Car {
     return this.cars.find((car) => car.carId == carId);

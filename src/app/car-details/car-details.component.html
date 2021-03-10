@@ -1,10 +1,8 @@
 <button (click)="goBack()">Go back</button>
 <button *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>
 <button *ngIf="car.isRented" (click)="returnCar()">Return Car</button>
+
 <div *ngIf="car">
-  <p>car-details works!</p>
-  <!-- When hero is undefined, the ngIf removes the hero detail from the DOM.
-There are no selectedHero bindings to consider.-->
   <h2>{{ car.carName | uppercase }} Details</h2>
   <div>
     <img [src]="car.imgUrl" [height]="360"> <br />
@@ -12,8 +10,10 @@ There are no selectedHero bindings to consider.-->
     <label>Number of Wheels: {{car.nWheels}}</label> <br />
     <label>Rate Per Hour: {{car.ratePerHour}}</label> <br />
     <label>Is Rented: {{car.isRented ? "Yes" : "No"}}</label> <br />
-    <label>Date Rented: {{car.dateRented.toDateString()}}</label> <br />
-    <label>Date Returned: {{car.dateReturned.toDateString()}}</label> <br />
-    <label>Date Rented: {{car.dateRented.toDateString()}}</label> <br />
+    <div *ngIf="car.isRented">
+      <label>Date Rented: {{car.dateRented != null ? car.dateRented.toDateString() : "N/A"}}</label> <br />
+      <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br />
+      <label>Date Deadline: {{car.dateDeadline != null ? car.dateDeadline.toDateString() : "N/A"}}</label> <br />
+    </div>
   </div>
 </div>

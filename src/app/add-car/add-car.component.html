@@ -1,0 +1,15 @@
+<h2>Add Car</h2>
+
+<label for="cn">Car Name:</label>
+<input id="cn" type="text" required [(ngModel)]="cn" /> <br />
+
+<label for="wheels">Number of Wheels:</label>
+<input id="wheels" type="number" required [(ngModel)]="nWheels" /> <br />
+
+<label for="rph">Rate per Hour:</label>
+<input id="rph" type="number" required [(ngModel)]="rph" /> <br />
+
+<label for="imgUrl">Image URL:</label>
+<input id="imgUrl" type="text" required [(ngModel)]="imgUrl" /> <br />
+
+<button type="button" (click)="addCar()">Add Car</button>

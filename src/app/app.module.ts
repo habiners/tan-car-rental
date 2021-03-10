@@ -8,6 +8,8 @@ import { CarListComponent } from './car-list/car-list.component';
 import { CarCardComponent } from './car-card/car-card.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
 import { RentedCarsComponent } from './rented-cars/rented-cars.component';
+import { AddCarComponent } from './add-car/add-car.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,13 @@ import { RentedCarsComponent } from './rented-cars/rented-cars.component';
     CarListComponent,
     CarCardComponent,
     CarDetailsComponent,
-    RentedCarsComponent
+    RentedCarsComponent,
+    AddCarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
