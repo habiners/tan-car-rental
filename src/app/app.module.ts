@@ -2,13 +2,23 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CarListComponent } from './car-list/car-list.component';
+import { CarCardComponent } from './car-card/car-card.component';
+import { CarDetailsComponent } from './car-details/car-details.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DashboardComponent,
+    CarListComponent,
+    CarCardComponent,
+    CarDetailsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
