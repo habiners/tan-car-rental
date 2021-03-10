@@ -12,7 +12,7 @@
     <label>Is Rented: {{car.isRented ? "Yes" : "No"}}</label> <br />
     <div *ngIf="car.isRented">
       <label>Date Rented: {{car.dateRented != null ? car.dateRented.toDateString() : "N/A"}}</label> <br />
-      <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br />
+      <!-- <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br /> -->
       <label>Date Deadline: {{car.dateDeadline != null ? car.dateDeadline.toDateString() : "N/A"}}</label> <br />
     </div>
   </div>
