@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CarListComponent } from './car-list/car-list.component';
 import { CarCardComponent } from './car-card/car-card.component';
 import { CarDetailsComponent } from './car-details/car-details.component';
+import { RentedCarsComponent } from './rented-cars/rented-cars.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CarDetailsComponent } from './car-details/car-details.component';
     DashboardComponent,
     CarListComponent,
     CarCardComponent,
-    CarDetailsComponent
+    CarDetailsComponent,
+    RentedCarsComponent
   ],
   imports: [
     BrowserModule,

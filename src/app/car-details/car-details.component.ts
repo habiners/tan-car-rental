@@ -20,6 +20,8 @@ export class CarDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.car = this.carService.getCarById(+ this.route.snapshot.paramMap.get('id'));
     console.log(this.car);
+    console.log(Date());
+    let date: Date = new Date();
   }
 
   car?: Car;
@@ -28,4 +30,11 @@ export class CarDetailsComponent implements OnInit {
     this.location.back();
   }
 
+  rentCar(): void{
+    this.carService.rentCar(this.car.carId);
+    // this.goBack();
+  }
+  returnCar(): void{
+    this.carService.returnCar(this.car.carId);
+  }
 }
