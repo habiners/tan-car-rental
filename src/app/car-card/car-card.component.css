@@ -20,10 +20,10 @@ img {
   max-width: 45vh;
   /* width: 45vh; */
   height: 30vh;
-  text-align: center;
+  /* align-items: center; */
   border-radius: 5px 5px 0 0;
 }
 
 .card.isRented{
-  background-color: antiquewhite;
+  background-color: gainsboro;
 }
