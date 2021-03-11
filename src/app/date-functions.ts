@@ -22,6 +22,9 @@ const DateTimeFunctions = {
           DateTimeFunctions.getTimestamp(date)
       : 'N/A';
   },
+  getDifferenceInHours(date1: Date, date2: Date): number{
+    return Math.floor((date2.getTime() - date1.getTime()) / (60 * 60 * 1000));
+  },
   addHours(date: Date, hours: number): Date {
     return new Date(date.getTime() + hours * 60 * 60 * 1000);
   },

@@ -47,7 +47,7 @@ export var DummyCars: Car[] = [
     nWheels: 4,
     ratePerHr: 100000000,
     dateDeadline: DateTimeFunctions.subtractHours(new Date(), 8),
-    dateRented: DateTimeFunctions.subtractHours(new Date(), 12),
+    dateRented: DateTimeFunctions.subtractHours(new Date(), 3),
     dateReturned: null,
   },
   {
@@ -103,11 +103,11 @@ export var DummyCars: Car[] = [
     carName: 'Subaru WRX',
     imgUrl:
       'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/SUBARU_WRX_STI_%28VA%29_Color_by_WR_Blue-Pearl_%28cropped%29.jpg/1920px-SUBARU_WRX_STI_%28VA%29_Color_by_WR_Blue-Pearl_%28cropped%29.jpg',
-    isRented: false,
+    isRented: true,
     nWheels: 4,
     ratePerHr: 550,
-    dateDeadline: null,
-    dateRented: null,
+    dateDeadline: DateTimeFunctions.addHours(new Date(), 1),
+    dateRented: DateTimeFunctions.subtractHours(new Date(), 2),
     dateReturned: null,
   },
   {

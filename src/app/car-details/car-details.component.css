@@ -86,3 +86,8 @@ button.action {
   height: 8vh;
   font-size: large;
 }
+
+.error {
+  text-align: center;
+  font-size: 69px;
+}

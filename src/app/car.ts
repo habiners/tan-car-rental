@@ -13,6 +13,6 @@ export interface Car {
   // dateDeadline?: String;
 
   dateRented?: Date;
-  dateReturned?: Date;
   dateDeadline?: Date;
+  dateReturned?: Date;
 }

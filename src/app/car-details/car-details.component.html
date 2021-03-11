@@ -1,4 +1,4 @@
-<div *ngIf="car" class="main">
+<div *ngIf="!isNoCar()" class="main">
   <div class="left">
     <button (click)="goBack()">Go back</button> <br />
     <p class="details">
@@ -22,4 +22,7 @@
     <h1>{{ car.carName }}</h1>
     <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
   </div>
+</div>
+<div *ngIf="isNoCar()" class="error">
+  <h1>404 Car not found!</h1>
 </div>
