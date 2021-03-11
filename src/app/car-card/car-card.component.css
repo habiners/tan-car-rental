@@ -1,18 +1,24 @@
 .card {
-  /* Add shadows to create the "card" effect */
   display: inline-block;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
-  border-radius: 5px; /* 5px rounded corners */
+  border-radius: 5px;
   width: 45vh;
   height: 40vh;
   margin-left: 5vh;
   margin-bottom: 5vh;
+
+  color: #333;
 }
 
-/* On mouse-over, add a deeper shadow */
 .card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  /* box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); */
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
+}
+
+.card.isRented{
+  background-color: #333;
+  color: white;
 }
 
 img {
@@ -24,6 +30,16 @@ img {
   border-radius: 5px 5px 0 0;
 }
 
-.card.isRented{
-  background-color: gainsboro;
+p {
+  margin: auto;
+  padding: 1vh 0 0 2vh;
+  vertical-align: middle;
+
+  text-decoration: none;
+  font-size: small;
+}
+
+p strong {
+  font-family: 'Lato', sans-serif;
+  font-size: large;
 }
