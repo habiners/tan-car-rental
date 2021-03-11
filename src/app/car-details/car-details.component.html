@@ -1,20 +1,24 @@
-<div *ngIf="car">
+<div *ngIf="car" class="main">
   <div class="left">
-    <h1>{{ car.carName }} Details</h1>
+    <h1>{{ car.carName }}</h1>
     <img [src]="car.imgUrl" [height]="360"> <br />
   </div>
+  <div id="vertical-line"></div>
   <div class="right">
-    <button (click)="goBack()">Go back</button>
-    <button *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>
-    <button *ngIf="car.isRented" (click)="returnCar()">Return Car</button>
-    <label>Car Name: {{car.carName}}</label> <br />
-    <label>Number of Wheels: {{car.nWheels}}</label> <br />
-    <label>Rate Per Hour: {{car.ratePerHour}}</label> <br />
-    <label>Is Rented: {{car.isRented ? "Yes" : "No"}}</label> <br />
-    <div *ngIf="car.isRented">
-      <label>Date Rented: {{car.dateRented != null ? car.dateRented.toDateString() : "N/A"}}</label> <br />
-      <!-- <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br /> -->
-      <label>Date Deadline: {{car.dateDeadline != null ? car.dateDeadline.toDateString() : "N/A"}}</label> <br />
-    </div>
+    <button (click)="goBack()">Go back</button> <br />
+    <p class="details">
+      <span class="header"> Details: </span> <br />
+      Car Name: {{car.carName}} <br />
+      Number of Wheels: {{car.nWheels}} <br />
+      Rate Per Hour: Php {{car.ratePerHr}} <br />
+      Status: {{car.isRented ? "Rented" : "Available"}} <br />
+      <span *ngIf="car.isRented">
+        <label>Date Rented: {{car.dateRented != null ? car.dateRented.toDateString() : "N/A"}}</label> <br />
+        <!-- <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br /> -->
+        <label>Date Deadline: {{car.dateDeadline != null ? car.dateDeadline.toDateString() : "N/A"}}</label> <br />
+      </span>
+    </p>
+    <button class="action" *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>
+    <button class="action" *ngIf="car.isRented" (click)="returnCar()">Return Car</button>
   </div>
 </div>
