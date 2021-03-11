@@ -3,9 +3,8 @@ div.main {
   height: 100%;
 }
 
-div div{
+div.main div{
   display: inline-block;
-  width: 49%;
   height: 100%;
   padding: 0;
   margin: 0;
@@ -17,22 +16,28 @@ div div{
 }
 
 div.left {
+  width: 20%;
   left: 0;
 }
 
 div.right{
+  width: 78%;
   right: 0;
 }
 
+#vertical-line{
+  left: 20%;
+  border-left: solid #808080;
+}
+
 h1 {
-  /* background-color: #e8e8e8; */
   text-align: center;
   font-family: 'Roboto', sans-serif;
 }
 
 img {
   display: block;
-  max-height: 50vh;
+  max-height: 40vh;
   max-width: 90%;
   height: auto;
   width: auto;
@@ -40,15 +45,10 @@ img {
   border-radius: 20px;
 }
 
-#vertical-line{
-  left: 50%;
-  border-left: solid #808080;
-}
 
 p.details {
   position: relative;
-  padding-left: 2em;
-  /* text-align: center; */
+  padding-left: 1em;
 }
 
 span.header {
@@ -58,24 +58,31 @@ span.header {
   margin-bottom: 2rem;
 }
 
+button {
+  border: none;
+  background-color: #e8e8e8;
+  border-color: #e8e8e8;
+  border-radius: 5px;
+  width: 12vh;
+  height: 5vh;
+}
+
+button:hover, button.action:hover {
+  color: white;
+  background-color: #808080;
+}
+
 button.action {
   display: block;
   position: absolute;
   right: 50%;
   bottom: 20%;
-  padding: auto;
   margin-right: -10vh;
 
   background-color: black;
   border-color: black;
   color: white;
-  border-radius: 5px;
   width: 20vh;
   height: 8vh;
   font-size: large;
-}
-
-button.action:hover {
-  color: white;
-  background-color: #808080;
 }

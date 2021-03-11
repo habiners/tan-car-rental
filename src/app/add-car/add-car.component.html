@@ -1,15 +1,27 @@
-<h2>Add Car</h2>
+<div class="main">
+  <div class="left">
+    <p class="details">
+      <span class="header">Add Car</span> <br />
 
-<label for="cn">Car Name:</label>
-<input id="cn" type="text" required [(ngModel)]="cn" /> <br />
+      <label for="cn">Car Name:</label> <br />
+      <input id="cn" type="text" required [(ngModel)]="cn" /> <br />
+      <br />
+      <label for="wheels">Number of Wheels:</label> <br />
+      <input id="wheels" type="number" required [(ngModel)]="nWheels" /> <br />
+      <br />
+      <label for="rph">Rate per Hour:</label> <br />
+      <input id="rph" type="number" required [(ngModel)]="rph" /> <br />
+      <br />
+      <label for="imgUrl">Image URL:</label> <br />
+      <input id="imgUrl" type="text" required [(ngModel)]="imgUrl" /> <br />
 
-<label for="wheels">Number of Wheels:</label>
-<input id="wheels" type="number" required [(ngModel)]="nWheels" /> <br />
+      <button class="action" (click)="addCar()">Add Car</button>
+    </p>
+  </div>
+  <div id="vertical-line"></div>
+  <div class="right">
+    <h1> Preview </h1>
+    <img [src]="imgUrl"> <br />
+  </div>
 
-<label for="rph">Rate per Hour:</label>
-<input id="rph" type="number" required [(ngModel)]="rph" /> <br />
-
-<label for="imgUrl">Image URL:</label>
-<input id="imgUrl" type="text" required [(ngModel)]="imgUrl" /> <br />
-
-<button type="button" (click)="addCar()">Add Car</button>
+</div>

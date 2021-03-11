@@ -32,5 +32,10 @@ export class AddCarComponent implements OnInit {
   cn: string = "";
   nWheels: number = 0;
   rph: number = 1;
-  imgUrl: string = "";
+  imgUrl: string = "https://i.stack.imgur.com/y9DpT.jpg";
+
+  imgError(image): void {
+    image.onerror = "";
+    image.src = "https://i.stack.imgur.com/y9DpT.jpg";
+  }
 }

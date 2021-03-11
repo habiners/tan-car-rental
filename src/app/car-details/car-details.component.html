@@ -1,10 +1,5 @@
 <div *ngIf="car" class="main">
   <div class="left">
-    <h1>{{ car.carName }}</h1>
-    <img [src]="car.imgUrl" [height]="360"> <br />
-  </div>
-  <div id="vertical-line"></div>
-  <div class="right">
     <button (click)="goBack()">Go back</button> <br />
     <p class="details">
       <span class="header"> Details: </span> <br />
@@ -13,6 +8,7 @@
       Rate Per Hour: Php {{car.ratePerHr}} <br />
       Status: {{car.isRented ? "Rented" : "Available"}} <br />
       <span *ngIf="car.isRented">
+        <br />
         <label>Date Rented: {{car.dateRented != null ? car.dateRented.toDateString() : "N/A"}}</label> <br />
         <!-- <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br /> -->
         <label>Date Deadline: {{car.dateDeadline != null ? car.dateDeadline.toDateString() : "N/A"}}</label> <br />
@@ -20,5 +16,10 @@
     </p>
     <button class="action" *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>
     <button class="action" *ngIf="car.isRented" (click)="returnCar()">Return Car</button>
+  </div>
+  <div id="vertical-line"></div>
+  <div class="right">
+    <h1>{{ car.carName }}</h1>
+    <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
   </div>
 </div>

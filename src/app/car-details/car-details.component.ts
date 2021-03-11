@@ -25,6 +25,7 @@ export class CarDetailsComponent implements OnInit {
   }
 
   car?: Car;
+  placeholderImg: string = "https://i.stack.imgur.com/y9DpT.jpg";
 
   goBack(): void {
     this.location.back();
