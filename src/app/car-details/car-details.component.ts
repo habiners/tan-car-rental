@@ -19,32 +19,44 @@ export class CarDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.car = this.carService.getCarById(+ this.route.snapshot.paramMap.get('id'));
-    // console.log(this.car);
-    // console.log(Date());
-    // let date: Date = new Date();
-    // let rentedTimestamp =
-    //   this.car.dateRented != null ?
-    //     this.car.dateRented.getHours() + ":" + this.car.dateRented.getMinutes() + ":" + this.car.dateRented.getSeconds() : null;
-    this.formattedDateRented = DateTimeFunctions.getDatetime(this.car.dateRented);
-    this.formattedDateDeadline = DateTimeFunctions.getDatetime(this.car.dateDeadline);
+    this.car = this.carService.getCarById(
+      + this.route.snapshot.paramMap.get('id')
+    );
+    this.updateTimes();
   }
 
   car?: Car;
-  placeholderImg: string = "https://i.stack.imgur.com/y9DpT.jpg";
+  placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
+
+  updateTimes(): void {
+    this.formattedDateRented = DateTimeFunctions.getDatetime(
+      this.car.dateRented
+    );
+    this.formattedDateDeadline = DateTimeFunctions.getDatetime(
+      this.car.dateDeadline
+    );
+  }
 
   goBack(): void {
     this.location.back();
   }
 
-  rentCar(): void{
-    this.carService.rentCar(this.car.carId);
-    // this.goBack();
+  rentCar(): void {
+    let hrsToRent: number = +prompt('Please input number of hours to rent:');
+    let deadline: Date = null;
+    if (hrsToRent <= 0) {
+      console.log('Please input proper values');
+      return;
+    } else deadline = DateTimeFunctions.addHours(new Date(), hrsToRent);
+    this.carService.rentCar(this.car.carId, deadline);
+    this.updateTimes();
+    console.log('Car rented successfuly!');
   }
-  returnCar(): void{
+  returnCar(): void {
     this.carService.returnCar(this.car.carId);
+    console.log('Car returned successfuly!');
   }
 
-  formattedDateRented: string = "";
-  formattedDateDeadline: string = "";
+  formattedDateRented: string = '';
+  formattedDateDeadline: string = '';
 }

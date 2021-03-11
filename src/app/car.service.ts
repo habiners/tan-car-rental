@@ -31,15 +31,18 @@ export class CarService {
     return carList;
   }
 
-  rentCar(carId: number) {
+  rentCar(carId: number, deadline: Date) {
     let carToRent: Car = this.cars.find((car) => car.carId == carId);
     carToRent.isRented = true;
-    carToRent.dateRented = new Date(Date.now());
+    carToRent.dateRented = new Date();
+    carToRent.dateDeadline = deadline;
+    console.log(carToRent);
   }
   returnCar(carId: number) {
     let carToReturn: Car = this.cars.find((car) => car.carId == carId);
     carToReturn.isRented = false;
-    carToReturn.dateRented = new Date(Date.now());
+    carToReturn.dateRented = new Date();
+    carToReturn.dateDeadline = null;
   }
   getRentedCars(): Car[] {
     let rentedCarList: Car[] = [];

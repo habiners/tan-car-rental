@@ -46,8 +46,8 @@ export var DummyCars: Car[] = [
     isRented: true,
     nWheels: 4,
     ratePerHr: 100000000,
-    dateDeadline: new Date(),
-    dateRented: new Date(),
+    dateDeadline: DateTimeFunctions.subtractHours(new Date(), 8),
+    dateRented: DateTimeFunctions.subtractHours(new Date(), 12),
     dateReturned: null,
   },
   {
@@ -118,8 +118,8 @@ export var DummyCars: Car[] = [
     isRented: true,
     nWheels: 4,
     ratePerHr: 9999999,
-    dateDeadline: new Date(),
-    dateRented: new Date(),
+    dateDeadline: DateTimeFunctions.subtractHours(new Date(), 1),
+    dateRented: DateTimeFunctions.subtractHours(new Date(), 10),
     dateReturned: null,
   },
 ]
