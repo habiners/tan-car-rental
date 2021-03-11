@@ -1,11 +1,1 @@
-<!-- <app-car-details *ngFor="let car of cars"></app-car-details> -->
-
-<!-- <ul>
-  <li *ngFor="let car of cars">
-    <a routerLink="/car-details/{{car.carId}}">
-      Car Name: {{car.carName}}, Car ID: {{car.carId}}
-    </a>
-  </li>
-</ul> -->
-
 <app-car-card *ngFor="let car of cars" [car]="car"></app-car-card>

@@ -3,7 +3,7 @@ div.main {
   height: 100%;
 }
 
-div.main div{
+div.main div {
   display: inline-block;
   height: 100%;
   padding: 0;
@@ -20,31 +20,36 @@ div.left {
   left: 0;
 }
 
-div.right{
+div.right {
   width: 78%;
   right: 0;
 }
 
-#vertical-line{
+#vertical-line {
   left: 20%;
   border-left: solid #808080;
 }
 
 h1 {
   text-align: center;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 img {
   display: block;
-  max-height: 40vh;
-  max-width: 90%;
-  height: auto;
-  width: auto;
   margin: auto;
   border-radius: 20px;
-}
 
+  /* Orig */
+  /* max-height: 40vh;
+  max-width: 90%;
+  height: auto;
+  width: auto; */
+
+  /* Test */
+  height: 54vh;
+  width: auto;
+}
 
 p.details {
   position: relative;
@@ -67,7 +72,8 @@ button {
   height: 5vh;
 }
 
-button:hover, button.action:hover {
+button:hover,
+button.action:hover {
   color: white;
   background-color: #808080;
 }

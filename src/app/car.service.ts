@@ -8,7 +8,6 @@ import { DummyCars } from './dummy-cars';
 export class CarService {
   constructor() {}
 
-  // private rentedCars: number[] = [];
   private cars: Car[] = DummyCars;
 
   addCar(newCar: Car) {

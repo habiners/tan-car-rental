@@ -1,24 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 
 * {
-  font-family: 'Varela Round', sans-serif;
+  font-family: "Varela Round", sans-serif;
 }
 
 div.nav-bar {
   position: relative;
-  /* background-color: #FFD28B; */
-  /* padding: 2vh; */
-
   border-bottom: #808080;
-  /* border-bottom-width: 4px; */
   border-bottom-style: solid;
 
   margin-bottom: 2vh;
   position: relative;
-  /* height: 20vh; */
 }
 
 h1 {
@@ -30,7 +25,6 @@ h1 {
 
   font-size: 60px;
   font-family: "Montserrat", sans-serif;
-  /* color: #EE1C23; */
 }
 
 nav {
@@ -66,4 +60,3 @@ nav a.active {
   vertical-align: top;
   overflow-y: auto;
 }
-

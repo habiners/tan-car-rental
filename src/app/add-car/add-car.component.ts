@@ -7,14 +7,12 @@ import { CarService } from '../car.service';
 @Component({
   selector: 'app-add-car',
   templateUrl: './add-car.component.html',
-  styleUrls: ['./add-car.component.css']
+  styleUrls: ['./add-car.component.css'],
 })
 export class AddCarComponent implements OnInit {
+  constructor(private carService: CarService) {}
 
-  constructor(private carService: CarService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addCar(): void {
     let car: Car = {
@@ -29,13 +27,8 @@ export class AddCarComponent implements OnInit {
     this.carService.addCar(car);
   }
 
-  cn: string = "";
+  cn: string = '';
   nWheels: number = 0;
   rph: number = 1;
-  imgUrl: string = "https://i.stack.imgur.com/y9DpT.jpg";
-
-  imgError(image): void {
-    image.onerror = "";
-    image.src = "https://i.stack.imgur.com/y9DpT.jpg";
-  }
+  imgUrl: string = 'https://i.stack.imgur.com/y9DpT.jpg';
 }

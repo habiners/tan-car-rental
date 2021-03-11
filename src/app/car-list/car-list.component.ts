@@ -13,7 +13,6 @@ export class CarListComponent implements OnInit {
 
   ngOnInit(): void {
     this.cars = this.carService.getAllCars();
-    // this.cars = this.carService.getUnrentedCars();
   }
 
   cars: Car[];
