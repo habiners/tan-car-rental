@@ -32,21 +32,20 @@ export class CarService {
   }
 
   rentCar(carId: number) {
-    // to implement
-    this.cars.find((car) => car.carId == carId).isRented = true;
+    let carToRent: Car = this.cars.find((car) => car.carId == carId);
+    carToRent.isRented = true;
+    carToRent.dateRented = new Date(Date.now());
   }
   returnCar(carId: number) {
-    // to implement
-    this.cars.find((car) => car.carId == carId).isRented = false;
+    let carToReturn: Car = this.cars.find((car) => car.carId == carId);
+    carToReturn.isRented = false;
+    carToReturn.dateRented = new Date(Date.now());
   }
   getRentedCars(): Car[] {
     let rentedCarList: Car[] = [];
     for (const car of this.cars) {
       if (car.isRented) rentedCarList.push(car);
     }
-    // this.rentedCars.forEach((rentedCarId) =>
-    //   rentedCarList.push(this.cars.find((car) => car.carId == rentedCarId))
-    // );
     return rentedCarList;
   }
 }

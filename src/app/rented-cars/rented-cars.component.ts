@@ -13,7 +13,7 @@ export class RentedCarsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cars = this.carService.getRentedCars();
-    console.log(this.cars);
+    // console.log(this.cars);
   }
 
   cars: Car[];
