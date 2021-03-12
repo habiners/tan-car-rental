@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "car-rental-ff75d": {
+      "hosting": {
+        "tan-car-rental": [
+          "car-rental-ff75d"
+        ]
+      }
+    }
+  }
+}

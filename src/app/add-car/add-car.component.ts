@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
 
 import { Car } from '../car';
@@ -10,9 +11,12 @@ import { CarService } from '../car.service';
   styleUrls: ['./add-car.component.css'],
 })
 export class AddCarComponent implements OnInit {
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService, private firestore: AngularFirestore) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.firebaseData = this.firestore.collection('car');
+    console.log(this.firebaseData);
+  }
 
   addCar(): void {
     let car: Car = {
@@ -25,8 +29,13 @@ export class AddCarComponent implements OnInit {
     };
     console.log(car);
     this.carService.addCar(car);
+
+    this.firestore.collection('car').add(car);
+
     alert("Car added successfully!");
   }
+
+  firebaseData: Object = [];
 
   cn: string = '';
   nWheels: number = 0;
