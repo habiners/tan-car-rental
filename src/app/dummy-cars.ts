@@ -12,7 +12,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 9800,
     dateDeadline: null,
     dateRented: null,
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 2,
@@ -24,7 +24,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 1000,
     dateDeadline: null,
     dateRented: null,
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 3,
@@ -36,7 +36,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 500,
     dateDeadline: DateTimeFunctions.subtractHours(new Date(), 6),
     dateRented: DateTimeFunctions.subtractHours(new Date(), 12),
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 4,
@@ -46,9 +46,9 @@ export var DummyCars: Car[] = [
     isRented: true,
     nWheels: 4,
     ratePerHr: 100000000,
-    dateDeadline: DateTimeFunctions.subtractHours(new Date(), 8),
-    dateRented: DateTimeFunctions.subtractHours(new Date(), 3),
-    dateReturned: null,
+    dateDeadline: DateTimeFunctions.subtractHours(new Date(), 3),
+    dateRented: DateTimeFunctions.subtractHours(new Date(), 8),
+    // dateReturned: null,
   },
   {
     carId: 5,
@@ -60,7 +60,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 800,
     dateDeadline: null,
     dateRented: null,
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 6,
@@ -72,7 +72,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 980,
     dateDeadline: null,
     dateRented: null,
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 7,
@@ -84,7 +84,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 420,
     dateDeadline: null,
     dateRented: null,
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 8,
@@ -96,7 +96,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 690,
     dateDeadline: null,
     dateRented: null,
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 9,
@@ -108,7 +108,7 @@ export var DummyCars: Car[] = [
     ratePerHr: 550,
     dateDeadline: DateTimeFunctions.addHours(new Date(), 1),
     dateRented: DateTimeFunctions.subtractHours(new Date(), 2),
-    dateReturned: null,
+    // dateReturned: null,
   },
   {
     carId: 10,
@@ -120,6 +120,6 @@ export var DummyCars: Car[] = [
     ratePerHr: 9999999,
     dateDeadline: DateTimeFunctions.subtractHours(new Date(), 1),
     dateRented: DateTimeFunctions.subtractHours(new Date(), 10),
-    dateReturned: null,
+    // dateReturned: null,
   },
 ]

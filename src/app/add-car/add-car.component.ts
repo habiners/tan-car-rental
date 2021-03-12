@@ -25,6 +25,7 @@ export class AddCarComponent implements OnInit {
     };
     console.log(car);
     this.carService.addCar(car);
+    alert("Car added successfully!");
   }
 
   cn: string = '';

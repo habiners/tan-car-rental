@@ -9,9 +9,11 @@
       Status: {{car.isRented ? "Rented" : "Available"}} <br />
       <span *ngIf="car.isRented">
         <br />
-        <label>Date Rented: {{formattedDateRented}}</label> <br />
-        <!-- <label>Date Returned: {{car.dateReturned != null ? car.dateReturned.toDateString() : "N/A"}}</label> <br /> -->
-        <label>Date Deadline: {{formattedDateDeadline}}</label> <br />
+        Date Rented: <br />
+        {{formattedDateRented}} <br />
+        <br />
+        Date Deadline: <br />
+        {{formattedDateDeadline}} <br />
       </span>
     </p>
     <button class="action" *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>

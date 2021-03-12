@@ -10,6 +10,7 @@ import { CarDetailsComponent } from './car-details/car-details.component';
 import { RentedCarsComponent } from './rented-cars/rented-cars.component';
 import { AddCarComponent } from './add-car/add-car.component';
 import { FormsModule } from '@angular/forms';
+import { AvailableCarsComponent } from './available-cars/available-cars.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     CarCardComponent,
     CarDetailsComponent,
     RentedCarsComponent,
-    AddCarComponent
+    AddCarComponent,
+    AvailableCarsComponent
   ],
   imports: [
     BrowserModule,
