@@ -1,5 +1,6 @@
 export interface Car {
   carId: number;
+  brandName: string;
   carName: string;
 
   nWheels: number;

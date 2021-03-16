@@ -19,9 +19,10 @@ export class CarDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.car = this.carService.getCarById(
-      +this.route.snapshot.paramMap.get('id')
-    );
+    this.carService
+      .getCarById(+this.route.snapshot.paramMap.get('id'))
+      .then((result) => (this.car = result.data()));
+    console.log('Nandato');
     if (!this.isNoCar()) this.updateTimes();
   }
 

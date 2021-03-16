@@ -3,6 +3,7 @@
     <button (click)="goBack()">Go back</button> <br />
     <p class="details">
       <span class="header"> Details: </span> <br />
+      Brand Name: {{car.brandName}} <br />
       Car Name: {{car.carName}} <br />
       Number of Wheels: {{car.nWheels}} <br />
       Rate Per Hour: Php {{car.ratePerHr}} <br />
@@ -21,7 +22,7 @@
   </div>
   <div id="vertical-line"></div>
   <div class="right">
-    <h1>{{ car.carName }}</h1>
+    <h1>{{ car.brandName + " " + car.carName }}</h1>
     <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
   </div>
 </div>

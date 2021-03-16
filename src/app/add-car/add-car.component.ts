@@ -23,6 +23,7 @@ export class AddCarComponent implements OnInit {
   addCar(): void {
     let car: Car = {
       carId: this.carService.getNewCarId(),
+      brandName: this.bn,
       carName: this.cn,
       imgUrl: this.imgUrl,
       isRented: false,
@@ -36,6 +37,7 @@ export class AddCarComponent implements OnInit {
 
   firebaseData: Object = [];
 
+  bn: string = '';
   cn: string = '';
   nWheels: number = 0;
   rph: number = 1;
