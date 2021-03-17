@@ -26,6 +26,6 @@
     <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
   </div>
 </div>
-<div *ngIf="isNoCar()" class="error">
+<div *ngIf="isNoCar() && !querySuccessful" class="error">
   <h1>404 Car not found!</h1>
 </div>

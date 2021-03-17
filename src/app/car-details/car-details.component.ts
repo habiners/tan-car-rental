@@ -18,16 +18,27 @@ export class CarDetailsComponent implements OnInit {
     private carService: CarService
   ) {}
 
-  ngOnInit(): void {
-    this.carService
+  async ngOnInit(): Promise<void> {
+    await this.carService
       .getCarById(+this.route.snapshot.paramMap.get('id'))
-      .then((result) => (this.car = result.data()));
-    console.log('Nandato');
+      .then((result) => {
+        if (result.data() === null || result.data() === undefined)
+          this.querySuccessful = false;
+        else this.car = result.data();
+      })
+      .catch((error) => {
+        console.error(error);
+        this.querySuccessful = false;
+      });
+    console.log(this.car);
     if (!this.isNoCar()) this.updateTimes();
   }
 
   car?: Car;
+  querySuccessful: boolean = true;
   placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
+  formattedDateRented: string = '';
+  formattedDateDeadline: string = '';
 
   isNoCar(): boolean {
     return this.car === null || this.car === undefined;
@@ -57,7 +68,7 @@ export class CarDetailsComponent implements OnInit {
       alert('Please input proper values.');
       return;
     } else deadline = DateTimeFunctions.addHours(new Date(), hrsToRent);
-    this.carService.rentCar(this.car.carId, deadline);
+    this.carService.rentCar(this.car, deadline);
     this.updateTimes();
     alert('Car rented successfuly!');
   }
@@ -71,7 +82,7 @@ export class CarDetailsComponent implements OnInit {
       new Date()
     ); // Actual hours pila cya ni hulam
     let total = this.car.ratePerHr * hrsRented;
-    this.carService.returnCar(this.car.carId);
+    this.carService.returnCar(this.car);
     alert(
       'Your total payment is Php ' +
         total +
@@ -84,7 +95,4 @@ export class CarDetailsComponent implements OnInit {
         '\nCar returned successfuly!'
     );
   }
-
-  formattedDateRented: string = '';
-  formattedDateDeadline: string = '';
 }

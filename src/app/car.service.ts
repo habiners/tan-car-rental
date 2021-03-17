@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { Car } from './car';
 // import { DummyCars } from './dummy-cars';
+
 import {
   AngularFirestore,
   AngularFirestoreModule,
-  DocumentSnapshot,
+  QueryDocumentSnapshot,
   QuerySnapshot,
+  SnapshotOptions,
 } from '@angular/fire/firestore';
 
 import { FirebaseApp } from '@angular/fire';
@@ -24,27 +26,29 @@ export class CarService {
 
   private db = this.firebase.firestore();
   private carConverter = {
-    toFirestore: function (car) {
+    toFirestore: function (car: any) {
       return {
         carId: car.carId,
         brandName: car.brandName,
         carName: car.carName,
-        dateDeadline: car.dateDeadline,
         dateRented: car.dateRented,
+        dateDeadline: car.dateDeadline,
         imgUrl: car.imgUrl,
         isRented: car.isRented,
         nWheels: car.nWheels,
         ratePerHr: car.ratePerHr,
       };
     },
-    fromFirestore: function (snapshot, options) {
+    fromFirestore: function (snapshot: QueryDocumentSnapshot<any>, options: SnapshotOptions) {
       const data = snapshot.data(options);
+      let rented = data.dateRented ? new Date(data.dateRented.seconds * 1000) : null;
+      let deadline = data.dateDeadline ? new Date(data.dateDeadline.seconds * 1000) : null;
       let car: Car = {
         carId: data.carId,
         brandName: data.brandName,
         carName: data.carName,
-        dateDeadline: data.dateDeadline,
-        dateRented: new Date(data.dateRented),
+        dateRented: rented,
+        dateDeadline: deadline,
         imgUrl: data.imgUrl,
         isRented: data.isRented,
         nWheels: data.nWheels,
@@ -81,15 +85,13 @@ export class CarService {
       .update({ id: carId + 1 });
   }
   getAllCars(): Promise<QuerySnapshot<Car>> {
-    return this.db.collection('car').withConverter(this.carConverter).get();
+    return this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .get();
   }
-  // getCarById(carId: number): Observable<Car> {
-  //   return this.firestore
-  //     .collection('car')
-  //     .doc(carId.toString())
-  //     .valueChanges() as Observable<Car>;
-  // }
-  getCarById(carId: number): Promise<DocumentSnapshot<Car>> {
+  // getCarById(carId: number): Promise<DocumentSnapshot<Car>> { // Mu error cya for some reason
+  getCarById(carId: number): Promise<any> {
     return this.db
       .collection('car')
       .withConverter(this.carConverter)
@@ -111,29 +113,26 @@ export class CarService {
       .get();
   }
 
-  async rentCar(carId: number, deadline: Date) {
-    let carToRent: Car = null;
-    await this.getCarById(carId).then((result) => (carToRent = result.data()));
+  rentCar(car: Car, deadline: Date) {
+    let carToRent: Car = car;
     carToRent.isRented = true;
     carToRent.dateRented = new Date();
     carToRent.dateDeadline = deadline;
-    await this.db
+    this.db
       .collection('car')
       .withConverter(this.carConverter)
-      .doc(carId.toString())
+      .doc(carToRent.carId.toString())
       .set(carToRent);
   }
-  async returnCar(carId: number) {
-    let carToReturn: Car = null;
-    await this.getCarById(carId).then((result) => (carToRent = result.data()));
+  returnCar(car: Car) {
+    let carToReturn: Car = car;
     carToReturn.isRented = false;
     carToReturn.dateRented = new Date();
     carToReturn.dateDeadline = null;
-    await this.db
+    this.db
       .collection('car')
       .withConverter(this.carConverter)
-      .doc(carId.toString())
+      .doc(carToReturn.carId.toString())
       .set(carToReturn);
-    // let carToReturn: Car = this.cars.find((car) => car.carId == carId);
   }
 }

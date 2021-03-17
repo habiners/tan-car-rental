@@ -10,19 +10,15 @@ import { CarService } from '../car.service';
   styleUrls: ['./add-car.component.css'],
 })
 
-// Documentation: https://firebase.google.com/docs/firestore
-
 export class AddCarComponent implements OnInit {
-  constructor(private carService: CarService, private firestore: AngularFirestore) {}
+  constructor(private carService: CarService) {}
 
   ngOnInit(): void {
-    this.firebaseData = this.firestore.collection('car');
-    console.log(this.firebaseData);
   }
 
   addCar(): void {
     let car: Car = {
-      carId: this.carService.getNewCarId(),
+      carId: 0,
       brandName: this.bn,
       carName: this.cn,
       imgUrl: this.imgUrl,
