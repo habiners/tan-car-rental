@@ -28,14 +28,14 @@ export class AddCarComponent implements OnInit {
     };
     console.log(car);
     this.carService.addCar(car);
-    alert("Car added successfully!");
+    alert("Car was added successfully!");
   }
 
   firebaseData: Object = [];
 
   bn: string = '';
   cn: string = '';
-  nWheels: number = 0;
-  rph: number = 1;
+  nWheels: number = 4;
+  rph: number = 100;
   imgUrl: string = 'https://i.stack.imgur.com/y9DpT.jpg';
 }

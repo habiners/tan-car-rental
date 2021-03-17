@@ -7,7 +7,9 @@
       Car Name: {{car.carName}} <br />
       Number of Wheels: {{car.nWheels}} <br />
       Rate Per Hour: Php {{car.ratePerHr}} <br />
-      Status: {{car.isRented ? "Rented" : "Available"}} <br />
+      Status: <strong [class.rented]="car.isRented" [class.available]="!car.isRented">{{car.isRented ? "Rented" :
+        "Available"}}
+      </strong><br />
       <span *ngIf="car.isRented">
         <br />
         Date Rented: <br />

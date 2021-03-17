@@ -30,7 +30,6 @@ export class CarDetailsComponent implements OnInit {
         console.error(error);
         this.querySuccessful = false;
       });
-    console.log(this.car);
     if (!this.isNoCar()) this.updateTimes();
   }
 
@@ -62,7 +61,6 @@ export class CarDetailsComponent implements OnInit {
       'Please input number of hours to rent:',
       '1'
     );
-    console.log(hrsToRent);
     let deadline: Date = null;
     if (hrsToRent <= 0 || Object.is(hrsToRent, NaN)) {
       alert('Please input proper values.');
@@ -71,6 +69,7 @@ export class CarDetailsComponent implements OnInit {
     this.carService.rentCar(this.car, deadline);
     this.updateTimes();
     alert('Car rented successfuly!');
+    // this.ngOnInit();
   }
   returnCar(): void {
     let hrsDeadline: number = DateTimeFunctions.getDifferenceInHours(

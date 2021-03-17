@@ -12,6 +12,7 @@ import {
 } from '@angular/fire/firestore';
 
 import { FirebaseApp } from '@angular/fire';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root',
@@ -19,14 +20,14 @@ import { FirebaseApp } from '@angular/fire';
 export class CarService {
   constructor(
     private firestore: AngularFirestore,
-    private firebase: FirebaseApp
+    private firebaseapp: FirebaseApp
   ) {}
 
   // private cars: Car[] = [];
 
-  private db = this.firebase.firestore();
+  private db = this.firebaseapp.firestore();
   private carConverter = {
-    toFirestore: function (car: any) {
+    toFirestore: function (car: any): Car {
       return {
         carId: car.carId,
         brandName: car.brandName,
@@ -39,57 +40,61 @@ export class CarService {
         ratePerHr: car.ratePerHr,
       };
     },
-    fromFirestore: function (snapshot: QueryDocumentSnapshot<any>, options: SnapshotOptions) {
+    fromFirestore: function (
+      snapshot: QueryDocumentSnapshot<any>,
+      options: SnapshotOptions
+    ): Car {
       const data = snapshot.data(options);
-      let rented = data.dateRented ? new Date(data.dateRented.seconds * 1000) : null;
-      let deadline = data.dateDeadline ? new Date(data.dateDeadline.seconds * 1000) : null;
-      let car: Car = {
+      return {
         carId: data.carId,
         brandName: data.brandName,
         carName: data.carName,
-        dateRented: rented,
-        dateDeadline: deadline,
+        dateRented: data.dateRented
+          ? new Date(data.dateRented.seconds * 1000)
+          : null,
+        dateDeadline: data.dateDeadline
+          ? new Date(data.dateDeadline.seconds * 1000)
+          : null,
         imgUrl: data.imgUrl,
         isRented: data.isRented,
         nWheels: data.nWheels,
         ratePerHr: data.ratePerHr,
       };
-      return car;
     },
   };
 
-  async addCar(newCar: Car) {
+  async addCar(newCar: Car): Promise<void> {
     let carId: number = 0;
+    let success: boolean = false;
     await this.db
       .collection('misc')
       .doc('nextId')
       .get()
-      .then((result) => {
-        carId = result.data().id as number;
-      });
+      .then((result) => (carId = result.data().id as number)); // Get next car id
     newCar.carId = carId;
-    console.log(newCar.carId);
     await this.firestore
       .collection('car')
       .doc(newCar.carId.toString())
       .set(newCar)
       .then(() => {
         console.log('Document successfully written!');
+        success = true;
       })
       .catch((error) => {
         console.error('Error writing document: ', error);
-      });
-    await this.db
-      .collection('misc')
-      .doc('nextId')
-      .update({ id: carId + 1 });
+        success = false;
+      }); // add the car
+    if (success)
+      await this.db
+        .collection('misc')
+        .doc('nextId')
+        .update({ id: carId + 1 }); // Increment next car id
   }
+
   getAllCars(): Promise<QuerySnapshot<Car>> {
-    return this.db
-      .collection('car')
-      .withConverter(this.carConverter)
-      .get();
+    return this.db.collection('car').withConverter(this.carConverter).get();
   }
+
   // getCarById(carId: number): Promise<DocumentSnapshot<Car>> { // Mu error cya for some reason
   getCarById(carId: number): Promise<any> {
     return this.db
@@ -98,6 +103,7 @@ export class CarService {
       .doc(carId.toString())
       .get();
   }
+
   getUnrentedCars(): Promise<QuerySnapshot<Car>> {
     return this.db
       .collection('car')
@@ -105,6 +111,7 @@ export class CarService {
       .where('isRented', '==', false)
       .get();
   }
+
   getRentedCars(): Promise<QuerySnapshot<Car>> {
     return this.db
       .collection('car')
@@ -124,10 +131,11 @@ export class CarService {
       .doc(carToRent.carId.toString())
       .set(carToRent);
   }
+
   returnCar(car: Car) {
     let carToReturn: Car = car;
     carToReturn.isRented = false;
-    carToReturn.dateRented = new Date();
+    carToReturn.dateRented = null;
     carToReturn.dateDeadline = null;
     this.db
       .collection('car')
