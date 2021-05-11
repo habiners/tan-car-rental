@@ -18,15 +18,26 @@ export class CarDetailsComponent implements OnInit {
     private carService: CarService
   ) {}
 
-  ngOnInit(): void {
-    this.car = this.carService.getCarById(
-      +this.route.snapshot.paramMap.get('id')
-    );
+  async ngOnInit(): Promise<void> {
+    await this.carService
+      .getCarById(+this.route.snapshot.paramMap.get('id'))
+      .then((result) => {
+        if (result.data() === null || result.data() === undefined)
+          this.querySuccessful = false;
+        else this.car = result.data();
+      })
+      .catch((error) => {
+        console.error(error);
+        this.querySuccessful = false;
+      });
     if (!this.isNoCar()) this.updateTimes();
   }
 
   car?: Car;
+  querySuccessful: boolean = true;
   placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
+  formattedDateRented: string = '';
+  formattedDateDeadline: string = '';
 
   isNoCar(): boolean {
     return this.car === null || this.car === undefined;
@@ -50,15 +61,15 @@ export class CarDetailsComponent implements OnInit {
       'Please input number of hours to rent:',
       '1'
     );
-    console.log(hrsToRent);
     let deadline: Date = null;
     if (hrsToRent <= 0 || Object.is(hrsToRent, NaN)) {
       alert('Please input proper values.');
       return;
     } else deadline = DateTimeFunctions.addHours(new Date(), hrsToRent);
-    this.carService.rentCar(this.car.carId, deadline);
+    this.carService.rentCar(this.car, deadline);
     this.updateTimes();
     alert('Car rented successfuly!');
+    // this.ngOnInit();
   }
   returnCar(): void {
     let hrsDeadline: number = DateTimeFunctions.getDifferenceInHours(
@@ -70,7 +81,7 @@ export class CarDetailsComponent implements OnInit {
       new Date()
     ); // Actual hours pila cya ni hulam
     let total = this.car.ratePerHr * hrsRented;
-    this.carService.returnCar(this.car.carId);
+    this.carService.returnCar(this.car);
     alert(
       'Your total payment is Php ' +
         total +
@@ -83,7 +94,4 @@ export class CarDetailsComponent implements OnInit {
         '\nCar returned successfuly!'
     );
   }
-
-  formattedDateRented: string = '';
-  formattedDateDeadline: string = '';
 }

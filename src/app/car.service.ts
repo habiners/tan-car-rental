@@ -1,53 +1,146 @@
 import { Injectable } from '@angular/core';
 
 import { Car } from './car';
-import { DummyCars } from './dummy-cars';
+// import { DummyCars } from './dummy-cars';
+
+import {
+  AngularFirestore,
+  AngularFirestoreModule,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
+  SnapshotOptions,
+} from '@angular/fire/firestore';
+
+import { FirebaseApp } from '@angular/fire';
+import firebase from 'firebase/app';
+
 @Injectable({
   providedIn: 'root',
 })
 export class CarService {
-  constructor() {}
+  constructor(
+    private firestore: AngularFirestore,
+    private firebaseapp: FirebaseApp
+  ) {}
 
-  private cars: Car[] = DummyCars;
+  // private cars: Car[] = [];
 
-  addCar(newCar: Car) {
-    this.cars.push(newCar);
-  }
-  getNewCarId(): number {
-    return this.cars.length + 1;
-  }
-  getCarById(carId: number): Car {
-    return this.cars.find((car) => car.carId == carId);
-  }
-  getAllCars(): Car[] {
-    return this.cars;
-  }
-  getUnrentedCars(): Car[] {
-    let carList: Car[] = [];
-    this.cars.forEach((car) => {
-      if (!car.isRented) carList.push(car);
-    });
-    return carList;
+  private db = this.firebaseapp.firestore();
+  private carConverter = {
+    toFirestore: function (car: any): Car {
+      return {
+        carId: car.carId,
+        brandName: car.brandName,
+        carName: car.carName,
+        dateRented: car.dateRented,
+        dateDeadline: car.dateDeadline,
+        imgUrl: car.imgUrl,
+        isRented: car.isRented,
+        nWheels: car.nWheels,
+        ratePerHr: car.ratePerHr,
+      };
+    },
+    fromFirestore: function (
+      snapshot: QueryDocumentSnapshot<any>,
+      options: SnapshotOptions
+    ): Car {
+      const data = snapshot.data(options);
+      return {
+        carId: data.carId,
+        brandName: data.brandName,
+        carName: data.carName,
+        dateRented: data.dateRented
+          ? new Date(data.dateRented.seconds * 1000)
+          : null,
+        dateDeadline: data.dateDeadline
+          ? new Date(data.dateDeadline.seconds * 1000)
+          : null,
+        imgUrl: data.imgUrl,
+        isRented: data.isRented,
+        nWheels: data.nWheels,
+        ratePerHr: data.ratePerHr,
+      };
+    },
+  };
+
+  async addCar(newCar: Car): Promise<void> {
+    let carId: number = 0;
+    let success: boolean = false;
+    await this.db
+      .collection('misc')
+      .doc('nextId')
+      .get()
+      .then((result) => (carId = result.data().id as number)); // Get next car id
+    newCar.carId = carId;
+    await this.firestore
+      .collection('car')
+      .doc(newCar.carId.toString())
+      .set(newCar)
+      .then(() => {
+        console.log('Document successfully written!');
+        success = true;
+      })
+      .catch((error) => {
+        console.error('Error writing document: ', error);
+        success = false;
+      }); // add the car
+    if (success)
+      await this.db
+        .collection('misc')
+        .doc('nextId')
+        .update({ id: carId + 1 }); // Increment next car id
   }
 
-  rentCar(carId: number, deadline: Date) {
-    let carToRent: Car = this.cars.find((car) => car.carId == carId);
+  getAllCars(): Promise<QuerySnapshot<Car>> {
+    return this.db.collection('car').withConverter(this.carConverter).get();
+  }
+
+  // getCarById(carId: number): Promise<DocumentSnapshot<Car>> { // Mu error cya for some reason
+  getCarById(carId: number): Promise<any> {
+    return this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .doc(carId.toString())
+      .get();
+  }
+
+  getUnrentedCars(): Promise<QuerySnapshot<Car>> {
+    return this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .where('isRented', '==', false)
+      .get();
+  }
+
+  getRentedCars(): Promise<QuerySnapshot<Car>> {
+    return this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .where('isRented', '==', true)
+      .get();
+  }
+
+  rentCar(car: Car, deadline: Date) {
+    let carToRent: Car = car;
     carToRent.isRented = true;
     carToRent.dateRented = new Date();
     carToRent.dateDeadline = deadline;
-    console.log(carToRent);
+    this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .doc(carToRent.carId.toString())
+      .set(carToRent);
   }
-  returnCar(carId: number) {
-    let carToReturn: Car = this.cars.find((car) => car.carId == carId);
+
+  returnCar(car: Car) {
+    let carToReturn: Car = car;
     carToReturn.isRented = false;
-    carToReturn.dateRented = new Date();
+    carToReturn.dateRented = null;
     carToReturn.dateDeadline = null;
-  }
-  getRentedCars(): Car[] {
-    let rentedCarList: Car[] = [];
-    for (const car of this.cars) {
-      if (car.isRented) rentedCarList.push(car);
-    }
-    return rentedCarList;
+    this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .doc(carToReturn.carId.toString())
+      .set(carToReturn);
   }
 }

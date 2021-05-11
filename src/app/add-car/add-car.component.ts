@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Car } from '../car';
 import { CarService } from '../car.service';
@@ -9,14 +9,17 @@ import { CarService } from '../car.service';
   templateUrl: './add-car.component.html',
   styleUrls: ['./add-car.component.css'],
 })
+
 export class AddCarComponent implements OnInit {
   constructor(private carService: CarService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   addCar(): void {
     let car: Car = {
-      carId: this.carService.getNewCarId(),
+      carId: 0,
+      brandName: this.bn,
       carName: this.cn,
       imgUrl: this.imgUrl,
       isRented: false,
@@ -25,11 +28,20 @@ export class AddCarComponent implements OnInit {
     };
     console.log(car);
     this.carService.addCar(car);
-    alert("Car added successfully!");
+    alert("Car was added successfully!");
+
+    this.bn = "";
+    this.cn = "";
+    this.nWheels = 4;
+    this.rph = 100;
+    this.imgUrl = "";
   }
 
+  firebaseData: Object = [];
+
+  bn: string = '';
   cn: string = '';
-  nWheels: number = 0;
-  rph: number = 1;
+  nWheels: number = 4;
+  rph: number = 100;
   imgUrl: string = 'https://i.stack.imgur.com/y9DpT.jpg';
 }

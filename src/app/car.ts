@@ -1,5 +1,6 @@
 export interface Car {
   carId: number;
+  brandName: string;
   carName: string;
 
   nWheels: number;
@@ -10,5 +11,4 @@ export interface Car {
 
   dateRented?: Date;
   dateDeadline?: Date;
-  // dateReturned?: Date;
 }

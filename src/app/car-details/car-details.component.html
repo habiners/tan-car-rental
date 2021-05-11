@@ -3,10 +3,13 @@
     <button (click)="goBack()">Go back</button> <br />
     <p class="details">
       <span class="header"> Details: </span> <br />
+      Brand Name: {{car.brandName}} <br />
       Car Name: {{car.carName}} <br />
       Number of Wheels: {{car.nWheels}} <br />
       Rate Per Hour: Php {{car.ratePerHr}} <br />
-      Status: {{car.isRented ? "Rented" : "Available"}} <br />
+      Status: <strong [class.rented]="car.isRented" [class.available]="!car.isRented">{{car.isRented ? "Rented" :
+        "Available"}}
+      </strong><br />
       <span *ngIf="car.isRented">
         <br />
         Date Rented: <br />
@@ -21,10 +24,10 @@
   </div>
   <div id="vertical-line"></div>
   <div class="right">
-    <h1>{{ car.carName }}</h1>
+    <h1>{{ car.brandName + " " + car.carName }}</h1>
     <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
   </div>
 </div>
-<div *ngIf="isNoCar()" class="error">
+<div *ngIf="isNoCar() && !querySuccessful" class="error">
   <h1>404 Car not found!</h1>
 </div>

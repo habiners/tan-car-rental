@@ -97,3 +97,11 @@ button.action {
   text-align: center;
   font-size: 69px;
 }
+
+.rented {
+  color: red;
+}
+
+.available {
+  color: green
+}

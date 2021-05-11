@@ -5,15 +5,18 @@ import { CarService } from '../car.service';
 @Component({
   selector: 'app-car-list',
   templateUrl: './car-list.component.html',
-  styleUrls: ['./car-list.component.css']
+  styleUrls: ['./car-list.component.css'],
 })
 export class CarListComponent implements OnInit {
+  constructor(private carService: CarService) {}
 
-  constructor(private carService: CarService) { }
-
-  ngOnInit(): void {
-    this.cars = this.carService.getAllCars();
+  async ngOnInit(): Promise<void> {
+    await this.carService.getAllCars().then((result) =>
+      result.docs.forEach((docList) => {
+        this.cars.push(docList.data());
+      })
+    );
   }
 
-  cars: Car[];
+  cars?: Car[] = [];
 }

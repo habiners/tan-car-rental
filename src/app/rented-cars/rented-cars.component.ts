@@ -12,9 +12,10 @@ export class RentedCarsComponent implements OnInit {
   constructor(private carService: CarService) { }
 
   ngOnInit(): void {
-    this.cars = this.carService.getRentedCars();
-    // console.log(this.cars);
+    this.carService.getRentedCars().then((result) =>
+      result.docs.forEach((docList) => this.cars.push(docList.data()))
+    );
   }
 
-  cars: Car[];
+  cars?: Car[] = [];
 }

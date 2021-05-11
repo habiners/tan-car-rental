@@ -2,7 +2,7 @@
   <div class='card' [class.isRented]="car.isRented">
     <img [src]="car.imgUrl">
     <p>
-      <strong>{{car.carName}}</strong> <br />
+      <strong>{{car.brandName + ' ' + car.carName}}</strong> <br />
       Rate per hour: Php {{car.ratePerHr}} <br />
       Status: {{car.isRented ? "Rented" : "Available"}}
     </p>

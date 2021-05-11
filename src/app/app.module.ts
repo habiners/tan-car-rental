@@ -12,6 +12,10 @@ import { AddCarComponent } from './add-car/add-car.component';
 import { FormsModule } from '@angular/forms';
 import { AvailableCarsComponent } from './available-cars/available-cars.component';
 
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire'
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +30,9 @@ import { AvailableCarsComponent } from './available-cars/available-cars.componen
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

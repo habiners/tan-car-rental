@@ -1,6 +1,7 @@
 const DateTimeFunctions = {
   getTimestamp(date: Date): string {
-    let hours: number = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+    let hours: number =
+      date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
     return date != null
       ? (hours < 10 ? '0' + hours : hours) +
           ':' +
@@ -55,7 +56,11 @@ const DateTimeFunctions = {
         break;
     }
     return date != null
-      ? month + ' ' + date.getDate() + ', ' + date.getFullYear()
+      ? month +
+          ' ' +
+          (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) +
+          ', ' +
+          date.getFullYear()
       : 'N/A';
   },
   getDatetime(date: Date): string {
