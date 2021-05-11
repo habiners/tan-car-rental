@@ -9,14 +9,17 @@ import { CarService } from '../car.service';
   templateUrl: './add-car.component.html',
   styleUrls: ['./add-car.component.css'],
 })
-
 export class AddCarComponent implements OnInit {
   constructor(private carService: CarService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   addCar(): void {
+    if (this.bn == '' || this.cn == '' || this.imgUrl == '') {
+      alert('Incomplete input!');
+      return;
+    }
+
     let car: Car = {
       carId: 0,
       brandName: this.bn,
@@ -28,13 +31,13 @@ export class AddCarComponent implements OnInit {
     };
     console.log(car);
     this.carService.addCar(car);
-    alert("Car was added successfully!");
+    alert('Car was added successfully!');
 
-    this.bn = "";
-    this.cn = "";
+    this.bn = '';
+    this.cn = '';
     this.nWheels = 4;
     this.rph = 100;
-    this.imgUrl = "";
+    this.imgUrl = '';
   }
 
   firebaseData: Object = [];
