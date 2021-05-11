@@ -19,6 +19,10 @@ export class AddCarComponent implements OnInit {
       alert('Incomplete input!');
       return;
     }
+    else if (this.nWheels <= 0 || this.rph <= 0){
+      alert('Invalid input!');
+      return;
+    }
 
     let car: Car = {
       carId: 0,
