@@ -11,6 +11,4 @@ export interface Car {
 
   dateRented?: Date;
   dateDeadline?: Date;
-  // dateReturned?: Date;
-
 }

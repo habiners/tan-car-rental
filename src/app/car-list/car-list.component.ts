@@ -16,9 +16,7 @@ export class CarListComponent implements OnInit {
         this.cars.push(docList.data());
       })
     );
-    console.log(this.cars);
   }
 
-  // cars: Car[];
   cars?: Car[] = [];
 }

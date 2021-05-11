@@ -29,6 +29,12 @@ export class AddCarComponent implements OnInit {
     console.log(car);
     this.carService.addCar(car);
     alert("Car was added successfully!");
+
+    this.bn = "";
+    this.cn = "";
+    this.nWheels = 4;
+    this.rph = 100;
+    this.imgUrl = "";
   }
 
   firebaseData: Object = [];
