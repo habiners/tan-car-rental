@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Car } from '../car';
+import { Car } from '../../car';
 
 @Component({
   selector: 'app-car-card',

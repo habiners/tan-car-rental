@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../car';
-import { CarService } from '../car.service';
+import { Car } from '../../car';
+import { CarService } from '../../car.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import DateTimeFunctions from '../date-functions';
+import DateTimeFunctions from '../../date-functions';
 
 @Component({
   selector: 'app-car-details',
