@@ -12,12 +12,14 @@ import { RentedCarsComponent } from './screens/rented-cars/rented-cars.component
 import { AvailableCarsComponent } from './screens/available-cars/available-cars.component';
 import { CarDetailsComponent } from './screens/car-details/car-details.component';
 
-import { CarListComponent } from './components/car-list/car-list.component';
+import { CarListComponent } from './screens/car-list/car-list.component';
 import { CarCardComponent } from './components/car-card/car-card.component';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -37,7 +39,9 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

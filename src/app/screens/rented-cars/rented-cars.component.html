@@ -1,1 +1,14 @@
-<app-car-card *ngFor="let car of cars" [car]="car"></app-car-card>
+<div class="nav-bar">
+  <h1>Vrrroom Rental</h1>
+  <nav>
+    <a routerLink="/dashboard" routerLinkActive="active">All Cars</a>
+    <a routerLink="/available-cars" routerLinkActive="active">Available Cars</a>
+    <a routerLink="/rented-cars" routerLinkActive="active">Rented Cars</a>
+    <a routerLink="/add-car" routerLinkActive="active">Add Car</a>
+  </nav>
+</div>
+
+<div class="body-content">
+  <app-car-card *ngFor="let car of cars" [car]="car"></app-car-card>
+</div>
+

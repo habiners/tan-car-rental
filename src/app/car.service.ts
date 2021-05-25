@@ -101,7 +101,8 @@ export class CarService {
     return this.db.collection('car').withConverter(this.carConverter).get();
   }
 
-  getAllCarsStsream(): Observable<DocumentChangeAction<any>[]>{
+  getAllCarsStream(): Observable<DocumentChangeAction<any>[]>{
+    // this.db.collection('car').onSnapshot({includeMetadataChanges: true});
     return this.firestore.collectionGroup('car').snapshotChanges();
   }
 
