@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import { Car } from '../../car';
+import { Car } from '../../models/car';
 import { CarService } from '../../car.service';
 
 @Component({

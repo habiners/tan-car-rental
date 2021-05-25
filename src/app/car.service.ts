@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 
-import { Car } from './car';
+import { Car } from './models/car';
 // import { DummyCars } from './dummy-cars';
 
 import {
   AngularFirestore,
   AngularFirestoreModule,
+  DocumentChangeAction,
   QueryDocumentSnapshot,
   QuerySnapshot,
   SnapshotOptions,
 } from '@angular/fire/firestore';
 
 import { FirebaseApp } from '@angular/fire';
-import firebase from 'firebase/app';
+import firebase  from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +22,12 @@ import firebase from 'firebase/app';
 export class CarService {
   constructor(
     private firestore: AngularFirestore,
-    private firebaseapp: FirebaseApp
-  ) {}
+    private firebaseapp: FirebaseApp,
+    // private firebase,
+  ) {
+    // console.log("Imo mama");
+    // console.log(typeof(firebase));
+  }
 
   // private cars: Car[] = [];
 
@@ -95,6 +101,10 @@ export class CarService {
     return this.db.collection('car').withConverter(this.carConverter).get();
   }
 
+  getAllCarsStsream(): Observable<DocumentChangeAction<any>[]>{
+    return this.firestore.collectionGroup('car').snapshotChanges();
+  }
+
   // getCarById(carId: number): Promise<DocumentSnapshot<Car>> { // Mu error cya for some reason
   getCarById(carId: number): Promise<any> {
     return this.db
@@ -105,6 +115,7 @@ export class CarService {
   }
 
   getUnrentedCars(): Promise<QuerySnapshot<Car>> {
+
     return this.db
       .collection('car')
       .withConverter(this.carConverter)

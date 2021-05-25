@@ -1,4 +1,4 @@
-import { Car } from './car';
+import { Car } from './models/car';
 import DateTimeFunctions from './date-functions';
 
 export var DummyCars: Car[] = [
