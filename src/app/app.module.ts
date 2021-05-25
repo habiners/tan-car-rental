@@ -21,6 +21,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { environment } from 'src/environments/environment';
+import { SignupComponent } from './screens/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { environment } from 'src/environments/environment';
     RentedCarsComponent,
     AddCarComponent,
     AvailableCarsComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

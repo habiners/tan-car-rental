@@ -5,15 +5,13 @@ import { Car } from './models/car';
 
 import {
   AngularFirestore,
-  AngularFirestoreModule,
   DocumentChangeAction,
   QueryDocumentSnapshot,
   QuerySnapshot,
   SnapshotOptions,
 } from '@angular/fire/firestore';
 
-import { FirebaseApp } from '@angular/fire';
-import firebase  from 'firebase/app';
+import firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -22,16 +20,12 @@ import { Observable } from 'rxjs';
 export class CarService {
   constructor(
     private firestore: AngularFirestore,
-    private firebaseapp: FirebaseApp,
-    // private firebase,
   ) {
-    // console.log("Imo mama");
-    // console.log(typeof(firebase));
   }
 
   // private cars: Car[] = [];
 
-  private db = this.firebaseapp.firestore();
+  private db = firebase.firestore();
   private carConverter = {
     toFirestore: function (car: any): Car {
       return {
@@ -98,11 +92,11 @@ export class CarService {
   }
 
   getAllCars(): Promise<QuerySnapshot<Car>> {
-    return this.db.collection('car').withConverter(this.carConverter).get();
+    return this.db.collection('car').withConverter(this.carConverter).orderBy('carId').get();
   }
 
   getAllCarsStream(): Observable<DocumentChangeAction<any>[]>{
-    // this.db.collection('car').onSnapshot({includeMetadataChanges: true});
+    // this.db.collection('car').withConverter(this.carConverter).onSnapshot();
     return this.firestore.collectionGroup('car').snapshotChanges();
   }
 
