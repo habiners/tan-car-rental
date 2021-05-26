@@ -21,9 +21,6 @@ import { CarListComponent } from './screens/car-list/car-list.component';
 import { CarCardComponent } from './components/car-card/car-card.component';
 import { SignupComponent } from './screens/signup/signup.component';
 
-import { CarService } from './services/car.service';
-import { AccountService } from './services/account.service';
-
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -48,7 +45,7 @@ import { environment } from 'src/environments/environment';
     AngularFireAuthModule,
     AngularFireStorageModule,
   ],
-  providers: [CarService, AccountService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

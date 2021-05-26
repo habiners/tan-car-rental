@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 
-// import { QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
-// import { DocumentReference, DocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 import { UserClient } from '../models/userClient';
 
+
+import { FirebaseApp } from '@angular/fire';
+
 import firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 
+// https://stackoverflow.com/questions/48592656/firebase-auth-is-not-a-function
 export class AccountService {
-  constructor() {}
+  constructor(private fba: FirebaseApp) {
+  }
 
   private db = firebase.firestore();
   private firebaseAuth = firebase.auth();
@@ -37,29 +42,29 @@ export class AccountService {
     firstname: string,
     lastname: string
   ): Promise<void> {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
     let newUser: UserClient = {
-      userId: firebase.auth().currentUser.uid,
+      userId: this.firebaseAuth.currentUser.uid,
       firstname: firstname,
       lastname: lastname,
     };
-    await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).set(newUser);
+    // await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).set(newUser);
   }
 
   async signInAccount(
     email: string,
     password: string,
   ): Promise<void> {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
-    let userRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
-    console.log(userRef.get('firstname'));
+    await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+    // let userRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
+    // console.log(userRef.get('firstname'));
     // userR
     // signedInUser {
     //   userId: firebase.auth().currentUser.uid,
     //   firstname: firstname,
     //   lastname: lastname,
     // };
-
+    console.log(this.firebaseAuth.currentUser);
   }
 
 }

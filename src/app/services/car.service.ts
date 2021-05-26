@@ -9,9 +9,13 @@ import {
   QueryDocumentSnapshot,
   QuerySnapshot,
   SnapshotOptions,
+
 } from '@angular/fire/firestore';
 
+import { FirebaseApp } from '@angular/fire';
 import firebase from 'firebase/app';
+import "firebase/firestore";
+
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -21,6 +25,7 @@ import { Observable } from 'rxjs';
 export class CarService {
   constructor(
     private firestore: AngularFirestore,
+    private hah: FirebaseApp,
   ) {
   }
 

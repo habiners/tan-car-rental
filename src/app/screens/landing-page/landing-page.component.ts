@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-import { UserClient } from '../../models/userClient';
 import { AccountService } from '../../services/account.service';
 
 @Component({
@@ -9,10 +7,11 @@ import { AccountService } from '../../services/account.service';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent implements OnInit {
-  constructor(private accountService: AccountService) { }
+  constructor(
+    private accountService: AccountService,
+  ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   signIn(): void{
     console.log(this.emailInp);
