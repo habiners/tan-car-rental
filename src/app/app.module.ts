@@ -2,6 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -11,17 +16,15 @@ import { AddCarComponent } from './screens/add-car/add-car.component';
 import { RentedCarsComponent } from './screens/rented-cars/rented-cars.component';
 import { AvailableCarsComponent } from './screens/available-cars/available-cars.component';
 import { CarDetailsComponent } from './screens/car-details/car-details.component';
-
 import { CarListComponent } from './screens/car-list/car-list.component';
-import { CarCardComponent } from './components/car-card/car-card.component';
 
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireModule } from '@angular/fire'
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { CarCardComponent } from './components/car-card/car-card.component';
+import { SignupComponent } from './screens/signup/signup.component';
+
+import { CarService } from './services/car.service';
+import { AccountService } from './services/account.service';
 
 import { environment } from 'src/environments/environment';
-import { SignupComponent } from './screens/signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,7 @@ import { SignupComponent } from './screens/signup/signup.component';
     AddCarComponent,
     AvailableCarsComponent,
     LandingPageComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ import { SignupComponent } from './screens/signup/signup.component';
     AngularFireAuthModule,
     AngularFireStorageModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [CarService, AccountService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

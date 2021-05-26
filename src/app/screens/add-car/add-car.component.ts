@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 import { Car } from '../../models/car';
-import { CarService } from '../../car.service';
+import { CarService } from '../../services/car.service';
 
 @Component({
   selector: 'app-add-car',

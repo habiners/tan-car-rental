@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 
+// import { QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
+// import { DocumentReference, DocumentSnapshot, DocumentData } from '@angular/fire/firestore';
+import { UserClient } from '../models/userClient';
+
 import firebase from 'firebase/app';
-import { UserClient } from './models/userClient';
-import { Observable } from 'rxjs';
-import { QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class AccountService {
   constructor() {}
 
@@ -27,6 +29,7 @@ export class AccountService {
     });
     return signedIn;
   }
+
   // https://firebase.google.com/docs/auth/web/start
   async createAccount(
     email: string,
@@ -41,6 +44,22 @@ export class AccountService {
       lastname: lastname,
     };
     await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).set(newUser);
+  }
+
+  async signInAccount(
+    email: string,
+    password: string,
+  ): Promise<void> {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
+    let userRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
+    console.log(userRef.get('firstname'));
+    // userR
+    // signedInUser {
+    //   userId: firebase.auth().currentUser.uid,
+    //   firstname: firstname,
+    //   lastname: lastname,
+    // };
+
   }
 
 }

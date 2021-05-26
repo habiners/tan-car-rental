@@ -1,10 +1,10 @@
 <div class="main-container">
   <div class="center-container">
     <span>E-mail</span>
-    <input>
+    <input id="email" type="text" required [(ngModel)]="emailInp" >
     <span>Password</span>
-    <input>
-    <a routerLink="/dashboard"><button>Login</button></a>
+    <input id="password" type="password" required [(ngModel)]="passwordInp" >
+    <button class="action" (click)="signIn()">Login</button>
     <a routerLink="/signup">Don't have an account? Signup!</a>
   </div>
 </div>

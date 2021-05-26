@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Car } from './models/car';
+import { Car } from '../models/car';
 // import { DummyCars } from './dummy-cars';
 
 import {
@@ -17,6 +17,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
+
 export class CarService {
   constructor(
     private firestore: AngularFirestore,
