@@ -1,15 +1,24 @@
 <div class="main-container">
+  <div class="design-container"></div>
   <div class="center-container">
-    <h1>Signup</h1>
-    <span>E-mail</span>
-    <input id="email" type="text" required [(ngModel)]="emailInp" >
-    <span>Password</span>
-    <input id="password" type="password" required [(ngModel)]="passwordInp" >
-    <span>First Name</span>
-    <input id="firstname" type="text" required [(ngModel)]="firstnameInp" >
-    <span>Last Name</span>
-    <input id="lastname" type="text" required [(ngModel)]="lastnameInp" >
+    <h1 class="title">Signup</h1>
+
+    <span class="field">E-mail</span>
+    <input id="email" type="text" class="field" placeholder="Input e-mail..." required [(ngModel)]="emailInp">
+
+    <span class="field">First Name</span>
+    <input id="firstname" type="text" class="field" placeholder="Input first name..." required
+      [(ngModel)]="firstnameInp">
+
+    <span class="field">Last Name</span>
+    <input id="lastname" type="text" class="field" placeholder="Input last name..." required [(ngModel)]="lastnameInp">
+
+    <span class="field">Password</span>
+    <input id="password" type="password" class="field" placeholder="Input password..." required
+      [(ngModel)]="passwordInp">
+
     <button class="action" (click)="register()">Register</button>
-    <a routerLink="/landing">Back to login</a>
+
+    <a class="link" routerLink="/landing">Back to login</a>
   </div>
 </div>

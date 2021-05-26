@@ -29,15 +29,9 @@ export class AccountService {
 
   private db = firebase.firestore();
   private firebaseAuth = firebase.auth();
-  private signedInUser: firebase.User;
+  private signedInUser: UserClient;
   private loggedIn = new BehaviorSubject<boolean>(false);
   public loggedIn$ = this.loggedIn.asObservable();
-
-  isLoggedIn(): boolean {
-    let signedIn: boolean = false;
-
-    return signedIn;
-  }
 
   // https://firebase.google.com/docs/auth/web/start
   async createAccount(
@@ -71,5 +65,9 @@ export class AccountService {
     console.log('Signing out...');
     await this.firebaseAuth.signOut();
     console.log('Done!');
+  }
+
+  getCurrentUser(): UserClient{
+    return this.signedInUser;
   }
 }

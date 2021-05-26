@@ -25,9 +25,11 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {}
 
   async signIn(): Promise<void> {
-    console.log(this.emailInp);
-    console.log(this.passwordInp);
-    await this.accountService.signInAccount(this.emailInp, this.passwordInp);
+    try {
+      await this.accountService.signInAccount(this.emailInp, this.passwordInp);
+    } catch (error) {
+      alert(error);
+    }
   }
 
   emailInp: string = '';
