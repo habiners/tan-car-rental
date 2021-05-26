@@ -1,3 +1,15 @@
-<div>
-signup
+<div class="main-container">
+  <div class="center-container">
+    <h1>Signup</h1>
+    <span>E-mail</span>
+    <input id="email" type="text" required [(ngModel)]="emailInp" >
+    <span>Password</span>
+    <input id="password" type="password" required [(ngModel)]="passwordInp" >
+    <span>First Name</span>
+    <input id="firstname" type="text" required [(ngModel)]="firstnameInp" >
+    <span>Last Name</span>
+    <input id="lastname" type="text" required [(ngModel)]="lastnameInp" >
+    <button class="action" (click)="register()">Register</button>
+    <a routerLink="/landing">Back to login</a>
+  </div>
 </div>

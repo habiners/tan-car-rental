@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AccountService} from '../../services/account.service';
 import { Router } from '@angular/router';
+
+import {AccountService} from '../../services/account.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

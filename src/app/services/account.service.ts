@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-
-import { UserClient } from '../models/userClient';
-
-
 import { FirebaseApp } from '@angular/fire';
+
+import { BehaviorSubject } from 'rxjs';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
-import { BehaviorSubject } from 'rxjs';
+
+import { UserClient } from '../models/userClient';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +17,13 @@ import { BehaviorSubject } from 'rxjs';
 export class AccountService {
   constructor(private fba: FirebaseApp) {
     this.firebaseAuth.onAuthStateChanged((user) => {
-      if(user){
-        console.log("NI LOGIN");
+      if (user != null) {
+        console.log('Logged in');
         this.loggedIn.next(true);
+      } else {
+        console.log('Logged out');
+        this.loggedIn.next(false);
       }
-      else
-      this.loggedIn.next(false);
     });
   }
 
@@ -33,7 +33,7 @@ export class AccountService {
   private loggedIn = new BehaviorSubject<boolean>(false);
   public loggedIn$ = this.loggedIn.asObservable();
 
-  isLoggedIn(): boolean{
+  isLoggedIn(): boolean {
     let signedIn: boolean = false;
 
     return signedIn;
@@ -47,32 +47,29 @@ export class AccountService {
     lastname: string
   ): Promise<void> {
     await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
-    let newUser: UserClient = {
-      userId: this.firebaseAuth.currentUser.uid,
+    let newUser= {
       firstname: firstname,
       lastname: lastname,
     };
-    // await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).set(newUser);
+    await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).set(newUser);
   }
 
-  async signInAccount(
-    email: string,
-    password: string,
-  ): Promise<void> {
+  async signInAccount(email: string, password: string): Promise<void> {
     await this.firebaseAuth.signInWithEmailAndPassword(email, password);
-    // let userRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
-    // console.log(userRef.get('firstname'));
-    // userR
-    // signedInUser {
-    //   userId: firebase.auth().currentUser.uid,
-    //   firstname: firstname,
-    //   lastname: lastname,
-    // };
+    let userRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
+    console.log(userRef.get('firstname'));
+    let signedInUser: UserClient = {
+      userId: firebase.auth().currentUser.uid,
+      firstname: userRef.get('firstname'),
+      lastname: userRef.get('lastname'),
+    };
     console.log(this.firebaseAuth.currentUser);
+    console.log(signedInUser);
   }
 
-  async signOutAccount(): Promise<void>{
+  async signOutAccount(): Promise<void> {
+    console.log('Signing out...');
     await this.firebaseAuth.signOut();
+    console.log('Done!');
   }
-
 }
