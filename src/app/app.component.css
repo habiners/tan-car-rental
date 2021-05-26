@@ -7,6 +7,23 @@
   font-family: "Varela Round", sans-serif;
 }
 
+body {
+  color: yellow;
+}
+
+.body-content {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+}
+
+router-outlet {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+}
+
+/* Old
 div.nav-bar {
   position: relative;
   border-bottom: #808080;
@@ -59,4 +76,5 @@ nav a.active {
   height: 70vh;
   vertical-align: top;
   overflow-y: auto;
-}
+} */
+

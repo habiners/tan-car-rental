@@ -1,0 +1,13 @@
+<div class="main-container">
+  <div class="design-container"></div>
+  <div class="center-container">
+    <h1 class="logo">Vrrrooom Rental</h1>
+    <h1 class="title">Login</h1>
+    <span class="field">E-mail</span>
+    <input id="email" type="text"  class="field" placeholder="Input e-mail..." required [(ngModel)]="emailInp" >
+    <span class="field">Password</span>
+    <input id="password" type="password" class="field" placeholder="Input password..." required [(ngModel)]="passwordInp" >
+    <button class="action" (click)="signIn()">Login</button>
+    <a class="link" routerLink="/signup">Don't have an account? Signup!</a>
+  </div>
+</div>

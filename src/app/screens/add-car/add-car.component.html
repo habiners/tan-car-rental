@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<div class="body-content">
+  <div class="main">
+    <div class="left">
+      <p class="details">
+        <span class="header">Add Car</span> <br />
+
+        <label for="bn">Brand Name:</label> <br />
+        <input id="bn" type="text" required [(ngModel)]="bn" /> <br />
+        <br />
+        <label for="cn">Car Name:</label> <br />
+        <input id="cn" type="text" required [(ngModel)]="cn" /> <br />
+        <br />
+        <label for="wheels">Number of Wheels:</label> <br />
+        <input id="wheels" type="number" required [(ngModel)]="nWheels" /> <br />
+        <br />
+        <label for="rph">Rate per Hour:</label> <br />
+        <input id="rph" type="number" required [(ngModel)]="rph" /> <br />
+        <br />
+        <label for="imgUrl">Image URL:</label> <br />
+        <input id="imgUrl" type="text" required [(ngModel)]="imgUrl" /> <br />
+
+        <button class="action" (click)="addCar()">Add Car</button>
+      </p>
+    </div>
+    <div id="vertical-line"></div>
+    <div class="right">
+      <h1> Preview </h1>
+      <img [src]="imgUrl"> <br />
+    </div>
+
+  </div>
+</div>
