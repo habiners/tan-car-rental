@@ -11,8 +11,8 @@ import { AddCarComponent } from './screens/add-car/add-car.component';
 import { AvailableCarsComponent } from './screens/available-cars/available-cars.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'landing', pathMatch: 'full' },
-  { path: 'landing', component: LandingPageComponent },
+  { path: '', redirectTo: 'landing', pathMatch: 'full'},
+  { path: 'landing', component: LandingPageComponent},
   { path: 'signup', component: SignupComponent },
   { path: 'dashboard', component: CarListComponent },
   { path: 'available-cars', component: AvailableCarsComponent},

@@ -8,6 +8,7 @@ import { FirebaseApp } from '@angular/fire';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -16,22 +17,25 @@ import 'firebase/auth';
 // https://stackoverflow.com/questions/48592656/firebase-auth-is-not-a-function
 export class AccountService {
   constructor(private fba: FirebaseApp) {
+    this.firebaseAuth.onAuthStateChanged((user) => {
+      if(user){
+        console.log("NI LOGIN");
+        this.loggedIn.next(true);
+      }
+      else
+      this.loggedIn.next(false);
+    });
   }
 
   private db = firebase.firestore();
   private firebaseAuth = firebase.auth();
   private signedInUser: firebase.User;
+  private loggedIn = new BehaviorSubject<boolean>(false);
+  public loggedIn$ = this.loggedIn.asObservable();
 
-  async getSignedInUser(): Promise<boolean>{
+  isLoggedIn(): boolean{
     let signedIn: boolean = false;
-    this.firebaseAuth.onAuthStateChanged((user) => {
-      if(user){
-        this.signedInUser = user;
-        signedIn = true;
-      }
-      else
-        signedIn = false;
-    });
+
     return signedIn;
   }
 
@@ -65,6 +69,10 @@ export class AccountService {
     //   lastname: lastname,
     // };
     console.log(this.firebaseAuth.currentUser);
+  }
+
+  async signOutAccount(): Promise<void>{
+    await this.firebaseAuth.signOut();
   }
 
 }

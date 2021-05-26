@@ -17,9 +17,10 @@ import { RentedCarsComponent } from './screens/rented-cars/rented-cars.component
 import { AvailableCarsComponent } from './screens/available-cars/available-cars.component';
 import { CarDetailsComponent } from './screens/car-details/car-details.component';
 import { CarListComponent } from './screens/car-list/car-list.component';
+import { SignupComponent } from './screens/signup/signup.component';
 
 import { CarCardComponent } from './components/car-card/car-card.component';
-import { SignupComponent } from './screens/signup/signup.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { environment } from 'src/environments/environment';
 
@@ -35,6 +36,7 @@ import { environment } from 'src/environments/environment';
     AvailableCarsComponent,
     LandingPageComponent,
     SignupComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

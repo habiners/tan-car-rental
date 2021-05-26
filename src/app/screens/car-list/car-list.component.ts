@@ -8,7 +8,9 @@ import { CarService } from '../../services/car.service';
   styleUrls: ['./car-list.component.css'],
 })
 export class CarListComponent implements OnInit {
-  constructor(private carService: CarService) {}
+  constructor(private carService: CarService) {
+
+  }
 
   async ngOnInit(): Promise<void> {
     await this.carService.getAllCars().then((result) =>

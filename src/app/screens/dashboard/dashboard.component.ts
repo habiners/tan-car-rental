@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import {AccountService} from '../../services/account.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  constructor(accountService: AccountService, router: Router) {
+    if (accountService.loggedIn$) {
+      router.navigate(['landing']);
+    }
+   }
 
   ngOnInit(): void {
   }
