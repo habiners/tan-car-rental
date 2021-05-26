@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -16,13 +16,14 @@ import { UserClient } from '../models/userClient';
 // https://stackoverflow.com/questions/48592656/firebase-auth-is-not-a-function
 export class AccountService {
   constructor(private fba: FirebaseApp) {
-    this.firebaseAuth.onAuthStateChanged((user) => {
+    this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user != null) {
         console.log('Logged in');
         this.loggedIn.next(true);
       } else {
         console.log('Logged out');
         this.loggedIn.next(false);
+        // this.sdadsa = "";
       }
     });
   }
@@ -41,24 +42,20 @@ export class AccountService {
     lastname: string
   ): Promise<void> {
     await this.firebaseAuth.createUserWithEmailAndPassword(email, password);
-    let newUser= {
+    let newUser = {
       firstname: firstname,
       lastname: lastname,
     };
-    await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).set(newUser);
+    await this.db
+      .collection('Users')
+      .doc(this.firebaseAuth.currentUser.uid)
+      .set(newUser);
   }
 
   async signInAccount(email: string, password: string): Promise<void> {
     await this.firebaseAuth.signInWithEmailAndPassword(email, password);
-    let userRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
-    console.log(userRef.get('firstname'));
-    let signedInUser: UserClient = {
-      userId: firebase.auth().currentUser.uid,
-      firstname: userRef.get('firstname'),
-      lastname: userRef.get('lastname'),
-    };
     console.log(this.firebaseAuth.currentUser);
-    console.log(signedInUser);
+    // console.log(signedInUser);
   }
 
   async signOutAccount(): Promise<void> {
@@ -67,7 +64,14 @@ export class AccountService {
     console.log('Done!');
   }
 
-  getCurrentUser(): UserClient{
+  getCurrentUser(): UserClient {
     return this.signedInUser;
+  }
+
+  async getCurrentUserName(): Promise<String> {
+    let completeName: String = "";
+    let docRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
+    completeName = docRef.get('firstname') + " " + docRef.get('lastname');
+    return completeName
   }
 }
