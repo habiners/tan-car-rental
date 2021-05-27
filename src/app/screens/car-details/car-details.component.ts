@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../models/car';
-import { CarService } from '../../services/car.service';
-
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+
+import { CarService } from '../../services/car.service';
+import { AccountService } from 'src/app/services/account.service';
+
+import { Car } from '../../models/car';
+import { Review } from '../../models/review';
 import DateTimeFunctions from '../../date-functions';
 
 @Component({
@@ -15,7 +18,8 @@ export class CarDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private carService: CarService
+    private carService: CarService,
+    private accountService: AccountService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -31,9 +35,11 @@ export class CarDetailsComponent implements OnInit {
         this.querySuccessful = false;
       });
     if (!this.isNoCar()) this.updateTimes();
+    this.reviews = await this.carService.getReviews(this.car.carId.toString());
   }
 
   car?: Car;
+  reviews?: Review[];
   querySuccessful: boolean = true;
   placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
   formattedDateRented: string = '';
@@ -71,6 +77,7 @@ export class CarDetailsComponent implements OnInit {
     alert('Car rented successfuly!');
     // this.ngOnInit();
   }
+
   returnCar(): void {
     let hrsDeadline: number = DateTimeFunctions.getDifferenceInHours(
       this.car.dateRented,
@@ -93,5 +100,13 @@ export class CarDetailsComponent implements OnInit {
           : '') +
         '\nCar returned successfuly!'
     );
+    let review: string = "";
+    review = prompt("Would you like to review? Leave blank if you don't.", "");
+    console.log(review);
+    if (review != ""){
+      console.log("Adding review...");
+      this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review);
+      this.ngOnInit();
+    }
   }
 }

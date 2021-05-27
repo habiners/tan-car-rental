@@ -1,31 +1,37 @@
+<app-navbar></app-navbar>
 <div *ngIf="!isNoCar()" class="main">
-  <div class="left">
-    <button (click)="goBack()">Go back</button> <br />
-    <p class="details">
-      <span class="header"> Details: </span> <br />
-      Brand Name: {{car.brandName}} <br />
-      Car Name: {{car.carName}} <br />
-      Number of Wheels: {{car.nWheels}} <br />
-      Rate Per Hour: Php {{car.ratePerHr}} <br />
-      Status: <strong [class.rented]="car.isRented" [class.available]="!car.isRented">{{car.isRented ? "Rented" :
-        "Available"}}
-      </strong><br />
-      <span *ngIf="car.isRented">
-        <br />
-        Date Rented: <br />
-        {{formattedDateRented}} <br />
-        <br />
-        Date Deadline: <br />
-        {{formattedDateDeadline}} <br />
-      </span>
-    </p>
-    <button class="action" *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>
-    <button class="action" *ngIf="car.isRented" (click)="returnCar()">Return Car</button>
+  <div class="content">
+    <div class="left">
+      <button class="back" (click)="goBack()">Go back</button>
+      <p class="details">
+        <span class="header"> Details: </span> <br />
+        Brand Name: {{car.brandName}} <br />
+        Car Name: {{car.carName}} <br />
+        Number of Wheels: {{car.nWheels}} <br />
+        Rate Per Hour: Php {{car.ratePerHr}} <br />
+        Status: <strong [class.rented]="car.isRented" [class.available]="!car.isRented">{{car.isRented ? "Rented" :
+          "Available"}}
+        </strong><br />
+        <span *ngIf="car.isRented">
+          <br />
+          Date Rented: <br />
+          {{formattedDateRented}} <br />
+          <br />
+          Date Deadline: <br />
+          {{formattedDateDeadline}} <br />
+        </span>
+      </p>
+      <button class="action" *ngIf="!car.isRented" (click)="rentCar()">Rent Car</button>
+      <button class="action" *ngIf="car.isRented" (click)="returnCar()">Return Car</button>
+    </div>
+    <div id="vertical-line"></div>
+    <div class="right">
+      <h1>{{ car.brandName + " " + car.carName }}</h1>
+      <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
+    </div>
   </div>
-  <div id="vertical-line"></div>
-  <div class="right">
-    <h1>{{ car.brandName + " " + car.carName }}</h1>
-    <img [src]="car.imgUrl == null ? placeholdImg : car.imgUrl"> <br />
+  <div class="review">
+    <app-reviews [reviews]="reviews"></app-reviews>
   </div>
 </div>
 <div *ngIf="isNoCar() && !querySuccessful" class="error">

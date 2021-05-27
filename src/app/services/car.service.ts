@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Car } from '../models/car';
+import { Review } from '../models/review';
 // import { DummyCars } from './dummy-cars';
 
 import {
@@ -9,29 +10,25 @@ import {
   QueryDocumentSnapshot,
   QuerySnapshot,
   SnapshotOptions,
-
 } from '@angular/fire/firestore';
 
 import { FirebaseApp } from '@angular/fire';
 import firebase from 'firebase/app';
-import "firebase/firestore";
+import 'firebase/firestore';
 
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-
 export class CarService {
-  constructor(
-    private firestore: AngularFirestore,
-    private hah: FirebaseApp,
-  ) {
-  }
+  constructor(private firestore: AngularFirestore, private hah: FirebaseApp) {}
 
   // private cars: Car[] = [];
 
   private db = firebase.firestore();
+  private firebaseAuth = firebase.auth();
+
   private carConverter = {
     toFirestore: function (car: any): Car {
       return {
@@ -98,10 +95,14 @@ export class CarService {
   }
 
   getAllCars(): Promise<QuerySnapshot<Car>> {
-    return this.db.collection('car').withConverter(this.carConverter).orderBy('carId').get();
+    return this.db
+      .collection('car')
+      .withConverter(this.carConverter)
+      .orderBy('carId')
+      .get();
   }
 
-  getAllCarsStream(): Observable<DocumentChangeAction<any>[]>{
+  getAllCarsStream(): Observable<DocumentChangeAction<any>[]> {
     // this.db.collection('car').withConverter(this.carConverter).onSnapshot();
     return this.firestore.collectionGroup('car').snapshotChanges();
   }
@@ -116,7 +117,6 @@ export class CarService {
   }
 
   getUnrentedCars(): Promise<QuerySnapshot<Car>> {
-
     return this.db
       .collection('car')
       .withConverter(this.carConverter)
@@ -154,5 +154,50 @@ export class CarService {
       .withConverter(this.carConverter)
       .doc(carToReturn.carId.toString())
       .set(carToReturn);
+  }
+
+  async addReview(
+    carId: string,
+    name: string,
+    review: string
+  ): Promise<boolean> {
+    try {
+      let reviewObj = {
+        uid: this.firebaseAuth.currentUser.uid,
+        name: name,
+        review: review,
+      };
+      await this.db
+        .collection('car')
+        .doc(carId)
+        .collection('Reviews')
+        .doc()
+        .set(reviewObj);
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  async getReviews(carId: string): Promise<Review[]> {
+    let retrievedReviews: Review[] = [];
+    try {
+      let x = await this.db
+        .collection('car')
+        .doc(carId)
+        .collection('Reviews')
+        .get();
+      x.docs.forEach((doc) => {
+        retrievedReviews.push({
+          name: doc.get('name'),
+          review: doc.get('review'),
+        });
+      });
+      return retrievedReviews;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
   }
 }

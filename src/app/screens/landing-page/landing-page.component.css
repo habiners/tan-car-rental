@@ -1,9 +1,9 @@
-div.main-container{
+div.main-container {
   height: 100vh;
   width: 100%;
   margin: 0;
 
-  background-color: white;
+  background-color: black;
 
   display: flex;
   flex-direction: row;
@@ -12,7 +12,14 @@ div.main-container{
   align-items: center;
 }
 
-div.design-container{
+@media (max-width: 700px) {
+  div.main-container {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+div.design-container {
   height: 100vh;
   margin: 0;
 
@@ -24,7 +31,13 @@ div.design-container{
   background-repeat: no-repeat;
 }
 
-div.center-container{
+@media (max-width: 700px) {
+  div.design-container {
+    flex: 0 0 0;
+  }
+}
+
+div.center-container {
   height: 100vh;
   width: 380px;
 
@@ -59,12 +72,13 @@ h1.title {
   font-size: 40px;
 }
 
-.field{
+.field {
   margin-left: 2em;
 }
 
-input.field{
+input.field {
   width: 75%;
+  margin-top: 6px;
   margin-bottom: 3em;
   padding: 10px 10px;
   border-radius: 6px;

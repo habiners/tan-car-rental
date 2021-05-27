@@ -1,11 +1,12 @@
 <div class="nav-bar">
-  <h1>Vrrroom Rental</h1>
+  <h1>Vrrroom Rental</h1> <br />
+  <span class="greeting">Welcome, <strong>{{completeName}}</strong>!</span>
   <nav>
     <a routerLink="/dashboard" routerLinkActive="active">All Cars</a>
     <a routerLink="/available-cars" routerLinkActive="active">Available Cars</a>
     <a routerLink="/rented-cars" routerLinkActive="active">Rented Cars</a>
     <a routerLink="/add-car" routerLinkActive="active">Add Car</a>
-    <button (click)="signout()">Signout</button>
+    <button class="action" (click)="signout()">Signout</button>
   </nav>
 </div>
 

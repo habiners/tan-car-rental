@@ -19,7 +19,6 @@ export class LandingPageComponent implements OnInit {
           this.router.navigate(['dashboard']);
         });
     });
-    // router.navigate(['dashboard']);
   }
 
   ngOnInit(): void {}
