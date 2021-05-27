@@ -40,7 +40,7 @@ def getPOSTag(listOfWords):
 def chunking(words_with_pos_tag):
     word_list = np.transpose(np.array(words_with_pos_tag))
     chunkered = [None] * len(word_list[0])
-    
+
     chunked = True
     pos_string = ""
     while chunked:
@@ -100,8 +100,8 @@ def main():
     words_with_pos_tag = getPOSTag(tokenized)
     chunked_sentence = chunking(words_with_pos_tag)
     print(chunked_sentence)
-    
+
     createTree(chunked_sentence[0], chunked_sentence[1])
 
-print(nltk.help.upenn_tagset('pp'))
-main()
+# print(nltk.help.upenn_tagset('pp'))
+# main()

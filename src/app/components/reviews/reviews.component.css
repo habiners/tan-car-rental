@@ -1,6 +1,10 @@
 h1{
-  margin-top: 50px;
+  padding-top: 30px;
   margin-left: 50px;
+  margin-right: 50px;
+
+  border-top: #808080;
+  border-top-style: solid;
 }
 
 div.tile-container{
@@ -12,7 +16,7 @@ div.tile-container{
   align-items: flex-start;
 }
 
-app-review-tile{
+app-review-tile, div.empty{
   flex-grow: 0;
   flex-basis: 30%;
   /* flex-basis: 500px; */

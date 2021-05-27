@@ -1,4 +1,8 @@
+<!-- <hr> -->
 <h1>Reviews:</h1>
 <div class="tile-container">
   <app-review-tile *ngFor="let review of reviews" [review]="review"></app-review-tile>
+  <div class="empty" *ngIf="isNoReviews()">
+    <h3>No reviews yet. You can write a review upon returning a car.</h3>
+  </div>
 </div>

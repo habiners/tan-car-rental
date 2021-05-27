@@ -159,13 +159,15 @@ export class CarService {
   async addReview(
     carId: string,
     name: string,
-    review: string
+    review: string,
+    sentiment: JSON,
   ): Promise<boolean> {
     try {
       let reviewObj = {
         uid: this.firebaseAuth.currentUser.uid,
         name: name,
         review: review,
+        sentiment: sentiment,
       };
       await this.db
         .collection('car')
@@ -192,6 +194,7 @@ export class CarService {
         retrievedReviews.push({
           name: doc.get('name'),
           review: doc.get('review'),
+          sentiment: doc.get('sentiment'),
         });
       });
       return retrievedReviews;

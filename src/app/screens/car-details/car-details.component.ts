@@ -38,6 +38,7 @@ export class CarDetailsComponent implements OnInit {
       });
     if (!this.isNoCar()) this.updateTimes();
     this.reviews = await this.carService.getReviews(this.car.carId.toString());
+    console.log(this.reviews);
   }
 
   car?: Car;
@@ -107,8 +108,8 @@ export class CarDetailsComponent implements OnInit {
     console.log(review);
     if (review != ""){
       console.log("Adding review...");
-      await this.flaskService.getSentimentAnalysis(review)
-      this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review);
+      let sentiment =  await this.flaskService.getSentimentAnalysis(review)
+      this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review, sentiment);
       this.ngOnInit();
     }
   }
