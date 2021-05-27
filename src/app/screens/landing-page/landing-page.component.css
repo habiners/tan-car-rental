@@ -78,6 +78,7 @@ h1.title {
 
 input.field {
   width: 75%;
+  margin-top: 6px;
   margin-bottom: 3em;
   padding: 10px 10px;
   border-radius: 6px;

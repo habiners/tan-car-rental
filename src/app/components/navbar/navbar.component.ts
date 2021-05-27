@@ -19,12 +19,10 @@ export class NavbarComponent implements OnInit {
         });
       // else this.completeName = accountService.getCurrentUserName();
     });
-    accountService.getCurrentUserName().then((name)=>{
-      this.completeName = name;
-    });
+    this.completeName = accountService.getCurrentUserCompname();
   }
 
-  completeName: String = '';
+  completeName: string = '';
 
   ngOnInit(): void {}
 

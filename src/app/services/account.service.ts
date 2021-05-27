@@ -19,6 +19,7 @@ export class AccountService {
     this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user != null) {
         console.log('Logged in');
+        this.compName = await this.queryCurrentUserCompname();
         this.loggedIn.next(true);
       } else {
         console.log('Logged out');
@@ -31,6 +32,7 @@ export class AccountService {
   private db = firebase.firestore();
   private firebaseAuth = firebase.auth();
   private signedInUser: UserClient;
+  private compName: string = '';
   private loggedIn = new BehaviorSubject<boolean>(false);
   public loggedIn$ = this.loggedIn.asObservable();
 
@@ -54,24 +56,26 @@ export class AccountService {
 
   async signInAccount(email: string, password: string): Promise<void> {
     await this.firebaseAuth.signInWithEmailAndPassword(email, password);
-    console.log(this.firebaseAuth.currentUser);
-    // console.log(signedInUser);
   }
 
   async signOutAccount(): Promise<void> {
-    console.log('Signing out...');
     await this.firebaseAuth.signOut();
-    console.log('Done!');
   }
 
   getCurrentUser(): UserClient {
     return this.signedInUser;
   }
 
-  async getCurrentUserName(): Promise<String> {
-    let completeName: String = "";
-    let docRef = await this.db.collection('Users').doc(this.firebaseAuth.currentUser.uid).get();
-    completeName = docRef.get('firstname') + " " + docRef.get('lastname');
-    return completeName
+  async queryCurrentUserCompname(): Promise<string> {
+    let completeName: string = '';
+    let docRef = await this.db
+      .collection('Users')
+      .doc(this.firebaseAuth.currentUser.uid)
+      .get();
+    completeName = docRef.get('firstname') + ' ' + docRef.get('lastname');
+    return completeName;
+  }
+  getCurrentUserCompname(): string {
+    return this.compName;
   }
 }

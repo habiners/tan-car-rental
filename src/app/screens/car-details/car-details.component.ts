@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../../models/car';
 import { CarService } from '../../services/car.service';
+import { AccountService } from 'src/app/services/account.service';
 
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -15,7 +16,8 @@ export class CarDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private carService: CarService
+    private carService: CarService,
+    private accountService: AccountService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -71,6 +73,7 @@ export class CarDetailsComponent implements OnInit {
     alert('Car rented successfuly!');
     // this.ngOnInit();
   }
+
   returnCar(): void {
     let hrsDeadline: number = DateTimeFunctions.getDifferenceInHours(
       this.car.dateRented,
@@ -93,5 +96,12 @@ export class CarDetailsComponent implements OnInit {
           : '') +
         '\nCar returned successfuly!'
     );
+    let review: string = "";
+    review = prompt("Would you like to review? Leave blank if you don't.", "");
+    console.log(review);
+    if (review != ""){
+      console.log("Adding review...");
+      this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review);
+    }
   }
 }
