@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Review } from '../../models/review';
 
 @Component({
   selector: 'app-review-tile',
@@ -12,4 +13,5 @@ export class ReviewTileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  @Input() review: Review;
 }

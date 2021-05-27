@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../models/car';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { CarService } from '../../services/car.service';
 import { AccountService } from 'src/app/services/account.service';
 
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { Car } from '../../models/car';
+import { Review } from '../../models/review';
 import DateTimeFunctions from '../../date-functions';
 
 @Component({
@@ -33,9 +35,12 @@ export class CarDetailsComponent implements OnInit {
         this.querySuccessful = false;
       });
     if (!this.isNoCar()) this.updateTimes();
+    this.reviews = await this.carService.getReviews(this.car.carId.toString());
+    console.log(this.reviews);
   }
 
   car?: Car;
+  reviews?: Review[];
   querySuccessful: boolean = true;
   placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
   formattedDateRented: string = '';
@@ -102,6 +107,7 @@ export class CarDetailsComponent implements OnInit {
     if (review != ""){
       console.log("Adding review...");
       this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review);
+      this.ngOnInit();
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Car } from '../models/car';
+import { Review } from '../models/review';
 // import { DummyCars } from './dummy-cars';
 
 import {
@@ -155,9 +156,14 @@ export class CarService {
       .set(carToReturn);
   }
 
-  async addReview(carId: string, name: string, review: string): Promise<boolean> {
+  async addReview(
+    carId: string,
+    name: string,
+    review: string
+  ): Promise<boolean> {
     try {
       let reviewObj = {
+        uid: this.firebaseAuth.currentUser.uid,
         name: name,
         review: review,
       };
@@ -165,12 +171,33 @@ export class CarService {
         .collection('car')
         .doc(carId)
         .collection('Reviews')
-        .doc(this.firebaseAuth.currentUser.uid)
+        .doc()
         .set(reviewObj);
       return true;
     } catch (error) {
       console.log(error);
       return false;
+    }
+  }
+
+  async getReviews(carId: string): Promise<Review[]> {
+    let retrievedReviews: Review[] = [];
+    try {
+      let x = await this.db
+        .collection('car')
+        .doc(carId)
+        .collection('Reviews')
+        .get();
+      x.docs.forEach((doc) => {
+        retrievedReviews.push({
+          name: doc.get('name'),
+          review: doc.get('review'),
+        });
+      });
+      return retrievedReviews;
+    } catch (error) {
+      console.log(error);
+      return [];
     }
   }
 }

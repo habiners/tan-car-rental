@@ -24,7 +24,6 @@ export class AccountService {
       } else {
         console.log('Logged out');
         this.loggedIn.next(false);
-        // this.sdadsa = "";
       }
     });
   }

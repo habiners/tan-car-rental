@@ -1,2 +1,2 @@
 <h1>Reviews:</h1>
-<app-review-tile></app-review-tile>
+<app-review-tile *ngFor="let review of reviews" [review]="review"></app-review-tile>
