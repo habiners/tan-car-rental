@@ -16,13 +16,18 @@ import { UserClient } from '../models/userClient';
 // https://stackoverflow.com/questions/48592656/firebase-auth-is-not-a-function
 export class AccountService {
   constructor(private fba: FirebaseApp) {
+    localStorage.s
+    this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
     this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user != null) {
         console.log('Logged in');
         this.compName = await this.queryCurrentUserCompname();
+        localStorage.setItem('user', JSON.stringify(user));
+        this.loggedInOnce = true;
         this.loggedIn.next(true);
       } else {
         console.log('Logged out');
+        localStorage.setItem('user', null);
         this.loggedIn.next(false);
       }
     });
@@ -33,7 +38,9 @@ export class AccountService {
   private signedInUser: UserClient;
   private compName: string = '';
   private loggedIn = new BehaviorSubject<boolean>(false);
+  public loggedInOnce = false;
   public loggedIn$ = this.loggedIn.asObservable();
+  public loggedUser: firebase.User;
 
   // https://firebase.google.com/docs/auth/web/start
   async createAccount(
@@ -54,7 +61,15 @@ export class AccountService {
   }
 
   async signInAccount(email: string, password: string): Promise<void> {
-    await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+    // await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+    this.firebaseAuth
+      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .then(() => {
+        this.firebaseAuth.signInWithEmailAndPassword(email, password);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   async signOutAccount(): Promise<void> {
@@ -76,5 +91,9 @@ export class AccountService {
   }
   getCurrentUserCompname(): string {
     return this.compName;
+  }
+
+  getIsLoggedIn(): boolean {
+    return this.firebaseAuth.currentUser != null;
   }
 }

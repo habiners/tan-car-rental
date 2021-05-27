@@ -12,14 +12,18 @@ export class NavbarComponent implements OnInit {
     private ngZone: NgZone,
     private router: Router
   ) {
-    accountService.loggedIn$.subscribe((isLoggedIn) => {
-      if (!isLoggedIn)
-        this.ngZone.run(() => {
-          this.router.navigate(['landing']);
-        });
-      // else this.completeName = accountService.getCurrentUserName();
-    });
-    this.completeName = accountService.getCurrentUserCompname();
+    // this.accountService.loggedIn$.subscribe((isLoggedIn) => {
+    //   if (!isLoggedIn) {
+    //     this.ngZone.run(() => {
+    //       this.router.navigate(['landing']);
+    //     });
+    //   }
+    // });
+    if (localStorage.getItem('user') == null)
+      this.ngZone.run(() => {
+        this.router.navigate(['landing']);
+      });
+    this.completeName = this.accountService.getCurrentUserCompname();
   }
 
   completeName: string = '';
