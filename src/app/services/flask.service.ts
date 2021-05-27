@@ -12,14 +12,20 @@ export class FlaskService {
     try {
       let cleaned: string = input.replace(/([^\w\s]|_|[^\x00-\x7F])+/g, "");
       let sentiment: JSON = await this.httpClient.get('http://127.0.0.1:5002/sentiment-analysis/' + cleaned).toPromise() as JSON;
-      console.log(sentiment);
       return sentiment;
-
     } catch (error) {
       console.log(error);
       let errorJSON: any = {error: error};
       return errorJSON;
     }
+  }
 
+  async displayChunked(input: string): Promise<void>{
+    try {
+      console.log("FASFAS " + input);
+      await this.httpClient.get('http://127.0.0.1:5002/chunker/' + input).toPromise()
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

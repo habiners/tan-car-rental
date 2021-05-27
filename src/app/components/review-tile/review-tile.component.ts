@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+import { FlaskService } from '../../services/flask.service';
+
 import { Review } from '../../models/review';
 
 @Component({
@@ -8,10 +11,14 @@ import { Review } from '../../models/review';
 })
 export class ReviewTileComponent implements OnInit {
 
-  constructor() { }
+  @Input() review: Review;
+  constructor(private flaskService: FlaskService) { }
 
   ngOnInit(): void {
   }
 
-  @Input() review: Review;
+  async displayChunked(): Promise<void>{
+    console.log("Chunking...")
+    await this.flaskService.displayChunked(this.review.review);
+  }
 }

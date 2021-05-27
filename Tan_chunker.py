@@ -19,14 +19,6 @@ from nltk.tree import *
 # https://www3.diism.unisi.it/~maggini/Teaching/TEL/slides%20EN/07%20-%20NLP%20-%20Syntax.pdf
 # https://courses.washington.edu/hypertxt/csar-v02/penntable.html
 
-noun_phrase = r"^(\<DT\>)?(\<RB\>)?(\<JJ\>)*(\<NN\>|\<NNS\>|\<NNP\>|\<NNPS\>)$"
-verb_phrase = r"^(\<MD\>)?(\<RB\>)?(\<VB(D|G|N|P|Z)?\>)$"
-
-to_check_chunk = [
-    ["NP", noun_phrase],
-    ["VBP", verb_phrase],
-]
-
 def tokenize(string):
     return string.split(' ')
 
@@ -38,6 +30,14 @@ def getPOSTag(listOfWords):
     return newList
 
 def chunking(words_with_pos_tag):
+    noun_phrase = r"^(\<DT\>)?(\<RB\>)?(\<JJ\>)*(\<NN\>|\<NNS\>|\<NNP\>|\<NNPS\>)$"
+    verb_phrase = r"^(\<MD\>)?(\<RB\>)?(\<VB(D|G|N|P|Z)?\>)$"
+
+    to_check_chunk = [
+        ["NP", noun_phrase],
+        ["VBP", verb_phrase],
+    ]
+
     word_list = np.transpose(np.array(words_with_pos_tag))
     chunkered = [None] * len(word_list[0])
 

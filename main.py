@@ -1,7 +1,7 @@
 from nltk.stem import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 
-import Tan_chunker
+from Tan_chunker import *
 
 ps = PorterStemmer()
 sbstemmer = SnowballStemmer("english") # Better daw ni
@@ -27,17 +27,26 @@ CORS(app)
 def greet():
     return jsonify({"text": "Welcome to the Sentiment Analysis Web Service!"})
 
+@app.route('/sentiment-analysis/<userInput>')
+def getSentimentAnalysis(userInput):
+  tokenizedRow = userInput.split(' ')
+  stemmed = ""
+  for word in tokenizedRow:
+    stemmed += (sbstemmer.stem(word) + " ")
+  sentiment = analyzer.polarity_scores(stemmed)
+  return jsonify(sentiment)
 
-class Sentiment_Analysis(Resource):
-  def get(self, userInput):
-    tokenizedRow = userInput.split(' ')
-    stemmed = ""
-    for word in tokenizedRow:
-        stemmed += (sbstemmer.stem(word) + " ")
-    sentiment = analyzer.polarity_scores(stemmed)
-    return jsonify(sentiment)
-
-api.add_resource(Sentiment_Analysis, '/sentiment-analysis/<userInput>')
+@app.route('/chunker/<usrInput>')
+def getChunked(usrInput):
+  print("HII")
+  print(usrInput)
+  tokenized = tokenize(usrInput.strip())
+  print(f"Tokenized: {tokenized}")
+  words_with_pos_tag = getPOSTag(tokenized)
+  chunked_sentence = chunking(words_with_pos_tag)
+  print("Creating tree")
+  createTree(chunked_sentence[0], chunked_sentence[1])
+  return jsonify({'result': True})
 
 if __name__ == "__main__":
     app.run(port=5002)
