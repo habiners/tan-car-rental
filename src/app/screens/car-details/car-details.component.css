@@ -80,22 +80,26 @@ span.header {
   margin-bottom: 2rem;
 }
 
-button {
-  border: none;
-  background-color: #e8e8e8;
-  border-color: #e8e8e8;
+button.back {
+  margin-left: 10px;
+  justify-self: center;
+  align-self: flex-start;
+
   border-radius: 5px;
+  background-color: white;
+  border-color: black;
+  color: black;
   width: 12vh;
   height: 5vh;
-}
-
-button:hover,
-button.action:hover {
-  color: white;
-  background-color: #808080;
+  font-size: large;
 }
 
 button.action {
+  border: none;
+  border-radius: 5px;
+  width: 12vh;
+  height: 5vh;
+
   margin-top: auto;
   justify-self: flex-end;
   align-self: center;
@@ -106,6 +110,12 @@ button.action {
   width: 20vh;
   height: 8vh;
   font-size: large;
+}
+
+button:hover,
+button.action:hover {
+  color: white;
+  background-color: #808080;
 }
 
 .error {
