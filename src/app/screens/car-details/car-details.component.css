@@ -38,6 +38,10 @@ div.right {
   right: 0;
 }
 
+div.review {
+  padding-bottom: 1em;
+}
+
 #vertical-line {
   left: 20%;
   border-left: solid #808080;
