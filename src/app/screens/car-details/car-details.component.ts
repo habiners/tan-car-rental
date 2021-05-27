@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { CarService } from '../../services/car.service';
 import { AccountService } from 'src/app/services/account.service';
+import { FlaskService } from 'src/app/services/flask.service';
 
 import { Car } from '../../models/car';
 import { Review } from '../../models/review';
@@ -20,6 +21,7 @@ export class CarDetailsComponent implements OnInit {
     private location: Location,
     private carService: CarService,
     private accountService: AccountService,
+    private flaskService: FlaskService,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -78,7 +80,7 @@ export class CarDetailsComponent implements OnInit {
     // this.ngOnInit();
   }
 
-  returnCar(): void {
+  async returnCar(): Promise<void> {
     let hrsDeadline: number = DateTimeFunctions.getDifferenceInHours(
       this.car.dateRented,
       this.car.dateDeadline
@@ -105,6 +107,7 @@ export class CarDetailsComponent implements OnInit {
     console.log(review);
     if (review != ""){
       console.log("Adding review...");
+      await this.flaskService.getSentimentAnalysis(review)
       this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review);
       this.ngOnInit();
     }
