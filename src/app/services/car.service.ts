@@ -163,11 +163,24 @@ export class CarService {
     sentiment: JSON,
   ): Promise<boolean> {
     try {
+      // -1, 0
+      // 1, 5
+      // m = y2-y1 / x2-x1
+      // m = 5 - 0 / 1 + 1
+      // m = 5/2 or 2.5
+      // y = mx + b
+      // y = 2.5x + b
+      // b = y - 2.5x
+      // b = 5 - 5/2
+      // b = 2.5
+      // y = 2.5x + 2.5
+
       let reviewObj = {
         uid: this.firebaseAuth.currentUser.uid,
         name: name,
         review: review,
         sentiment: sentiment,
+        rating: ((2.5) * sentiment['compound']) + 2.5
       };
       await this.db
         .collection('car')
@@ -195,6 +208,7 @@ export class CarService {
           name: doc.get('name'),
           review: doc.get('review'),
           sentiment: doc.get('sentiment'),
+          rating: doc.get('rating'),
         });
       });
       return retrievedReviews;

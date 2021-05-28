@@ -38,7 +38,6 @@ export class CarDetailsComponent implements OnInit {
       });
     if (!this.isNoCar()) this.updateTimes();
     this.reviews = await this.carService.getReviews(this.car.carId.toString());
-    console.log(this.reviews);
   }
 
   car?: Car;

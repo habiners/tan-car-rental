@@ -1,5 +1,8 @@
 <div class="main-container">
-  <span class="reviewer"><strong>{{review.name}}</strong></span>
+  <div class="header-container">
+    <span class="reviewer"><strong>{{review.name}}</strong></span>
+    <star-rating value="5" totalstars="5"></star-rating>
+    <button (click)="displayChunked()">See chunked</button>
+  </div>
   <span class="review">{{review.review}}</span>
-  <button (click)="displayChunked()">See chunked</button>
 </div>

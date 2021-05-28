@@ -38,13 +38,9 @@ def getSentimentAnalysis(userInput):
 
 @app.route('/chunker/<usrInput>')
 def getChunked(usrInput):
-  print("HII")
-  print(usrInput)
   tokenized = tokenize(usrInput.strip())
-  print(f"Tokenized: {tokenized}")
   words_with_pos_tag = getPOSTag(tokenized)
   chunked_sentence = chunking(words_with_pos_tag)
-  print("Creating tree")
   createTree(chunked_sentence[0], chunked_sentence[1])
   return jsonify({'result': True})
 

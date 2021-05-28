@@ -14,6 +14,12 @@ div.main-container{
   border-radius: 5px;
 }
 
+div.header-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 span.review{
   margin-top: 5px;
 }

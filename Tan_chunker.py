@@ -74,10 +74,9 @@ def chunking(words_with_pos_tag):
 
     return (word_list, chunkered)
 
-def createTree(word_list, chunkered):
+def createTree(word_list, chunkered, drawTree=True):
     tree_children = list()
     for i in range(len(word_list[0])):
-        print(word_list[0][i], word_list[1][i])
         if (chunkered[i] is not None):
             tree_grandchildren = list()
             for j in range(len(chunkered[i][0])):
@@ -86,8 +85,8 @@ def createTree(word_list, chunkered):
         else:
             tree_children.append(word_list[0][i] + " " + word_list[1][i])
     tree = Tree('S', tree_children)
-    print(tree)
-    tree.draw()
+    if(drawTree):
+        tree.draw()
 
 def main():
     print("Input sentence (input blank for test case):")

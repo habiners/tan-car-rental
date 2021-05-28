@@ -25,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ReviewTileComponent }from './components/review-tile/review-tile.component';
 
+import { RatingModule } from 'ng-starrating';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -52,6 +53,7 @@ import { environment } from 'src/environments/environment';
     AngularFireAuthModule,
     AngularFireStorageModule,
     HttpClientModule,
+    RatingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

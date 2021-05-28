@@ -25,6 +25,7 @@
     "@angular/router": "~11.2.13",
     "express": "^4.17.1",
     "firebase": "^7.0 || ^8.0",
+    "ng-starrating": "^1.0.20",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
