@@ -11,7 +11,10 @@
         Rate Per Hour: Php {{car.ratePerHr}} <br />
         Status: <strong [class.rented]="car.isRented" [class.available]="!car.isRented">{{car.isRented ? "Rented" :
           "Available"}}
-        </strong><br />
+        </strong><br /><br />
+        Average Rating:
+        <span *ngFor="let i of counter(averageRating)">★</span>
+        <span *ngFor="let i of counter(5-averageRating)">☆</span><br />
         <span *ngIf="car.isRented">
           <br />
           Date Rented: <br />

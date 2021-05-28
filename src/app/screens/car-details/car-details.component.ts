@@ -21,34 +21,30 @@ export class CarDetailsComponent implements OnInit {
     private location: Location,
     private carService: CarService,
     private accountService: AccountService,
-    private flaskService: FlaskService,
+    private flaskService: FlaskService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    await this.carService
-      .getCarById(+this.route.snapshot.paramMap.get('id'))
-      .then((result) => {
-        if (result.data() === null || result.data() === undefined)
-          this.querySuccessful = false;
-        else this.car = result.data();
-      })
-      .catch((error) => {
-        console.error(error);
-        this.querySuccessful = false;
-      });
-    if (!this.isNoCar()) this.updateTimes();
-    this.reviews = await this.carService.getReviews(this.car.carId.toString());
+    this.car = await this.carService.getCarById(+this.route.snapshot.paramMap.get('id'));
+    if (!this.isNoCar()) {
+      this.updateTimes();
+      this.querySuccessful = false;
+    }
+    let reviewObj = await this.carService.getReviews(this.car.carId.toString());
+    this.reviews = reviewObj['reviews'];
+    this.averageRating = reviewObj['aveRating'];
   }
 
   car?: Car;
   reviews?: Review[];
+  averageRating: number = 0;
   querySuccessful: boolean = true;
   placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
   formattedDateRented: string = '';
   formattedDateDeadline: string = '';
 
   isNoCar(): boolean {
-    return this.car === null || this.car === undefined;
+    return this.car == null || this.car == undefined;
   }
 
   updateTimes(): void {
@@ -102,14 +98,23 @@ export class CarDetailsComponent implements OnInit {
           : '') +
         '\nCar returned successfuly!'
     );
-    let review: string = "";
-    review = prompt("Would you like to review? Leave blank if you don't.", "");
+    let review: string = '';
+    review = prompt("Would you like to review? Leave blank if you don't.", '');
     console.log(review);
-    if (review != ""){
-      console.log("Adding review...");
-      let sentiment =  await this.flaskService.getSentimentAnalysis(review)
-      this.carService.addReview(this.car.carId.toString(), this.accountService.getCurrentUserCompname(), review, sentiment);
+    if (review != '') {
+      console.log('Adding review...');
+      let sentiment = await this.flaskService.getSentimentAnalysis(review);
+      this.carService.addReview(
+        this.car.carId.toString(),
+        this.accountService.getCurrentUserCompname(),
+        review,
+        sentiment
+      );
       this.ngOnInit();
     }
+  }
+
+  counter(i: number) {
+    return new Array(i);
   }
 }

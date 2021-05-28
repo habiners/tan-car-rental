@@ -108,12 +108,20 @@ export class CarService {
   }
 
   // getCarById(carId: number): Promise<DocumentSnapshot<Car>> { // Mu error cya for some reason
-  getCarById(carId: number): Promise<any> {
-    return this.db
+  // getCarById(carId: number): Promise<any> {
+  //   return this.db
+  //     .collection('car')
+  //     .withConverter(this.carConverter)
+  //     .doc(carId.toString())
+  //     .get();
+  // }
+  async getCarById(carId: number): Promise<Car> {
+    let car = await this.db
       .collection('car')
       .withConverter(this.carConverter)
       .doc(carId.toString())
       .get();
+    return car.data();
   }
 
   getUnrentedCars(): Promise<QuerySnapshot<Car>> {
@@ -160,7 +168,7 @@ export class CarService {
     carId: string,
     name: string,
     review: string,
-    sentiment: JSON,
+    sentiment: JSON
   ): Promise<boolean> {
     try {
       // -1, 1
@@ -180,7 +188,7 @@ export class CarService {
         name: name,
         review: review,
         sentiment: sentiment,
-        rating: Math.round((2*sentiment['compound']) + 3),
+        rating: Math.round(2 * sentiment['compound'] + 3),
       };
       await this.db
         .collection('car')
@@ -195,8 +203,10 @@ export class CarService {
     }
   }
 
-  async getReviews(carId: string): Promise<Review[]> {
+  async getReviews(carId: string): Promise<JSON> {
     let retrievedReviews: Review[] = [];
+    let sum: number = 0;
+    let jsonObj: any = {};
     try {
       let x = await this.db
         .collection('car')
@@ -210,11 +220,12 @@ export class CarService {
           sentiment: doc.get('sentiment'),
           rating: doc.get('rating'),
         });
+        sum += doc.get('rating');
       });
-      return retrievedReviews;
+      jsonObj = {reviews: retrievedReviews, aveRating: Math.round(sum / x.size)}
+      return jsonObj;
     } catch (error) {
       console.log(error);
-      return [];
+      return jsonObj;
     }
-  }
-}
+  }}

@@ -17,7 +17,7 @@ import { UserClient } from '../models/userClient';
 export class AccountService {
   constructor(private fba: FirebaseApp) {
     localStorage.s
-    this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+    this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
     this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user != null) {
         console.log('Logged in');
@@ -63,7 +63,7 @@ export class AccountService {
   async signInAccount(email: string, password: string): Promise<void> {
     // await this.firebaseAuth.signInWithEmailAndPassword(email, password);
     this.firebaseAuth
-      .setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
       .then(() => {
         this.firebaseAuth.signInWithEmailAndPassword(email, password);
       })
