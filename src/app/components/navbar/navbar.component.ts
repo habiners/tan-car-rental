@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
     private router: Router
   ) {
     this.accountService.loggedIn$.subscribe((isLogged) => {
-      if (!isLogged)
+      if (!isLogged && localStorage.getItem('user')==null)
         this.ngZone.run(() => {
           this.router.navigate(['landing']);
         });

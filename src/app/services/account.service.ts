@@ -27,7 +27,7 @@ export class AccountService {
       } else {
         console.log('Logged out');
         this.loggedUser = null;
-        localStorage.setItem('user', null);
+        localStorage.removeItem('user');
         this.loggedIn.next(false);
       }
     });
