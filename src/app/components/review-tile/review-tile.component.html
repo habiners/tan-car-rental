@@ -1,8 +1,8 @@
 <div class="main-container">
   <div class="header-container">
     <span class="reviewer"><strong>{{review.name}}</strong></span>
-    <star-rating value="5" totalstars="5"></star-rating>
-    <button (click)="displayChunked()">See chunked</button>
+    <span class="stars"><span *ngFor="let i of counter(review.rating)">★</span><span *ngFor="let i of counter(5-review.rating)">☆</span></span>
+    <button (click)="displayChunked()">Chunked</button>
   </div>
   <span class="review">{{review.review}}</span>
 </div>
