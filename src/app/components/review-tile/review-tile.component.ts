@@ -19,7 +19,6 @@ export class ReviewTileComponent implements OnInit {
   }
 
   async displayChunked(): Promise<void>{
-    console.log("Chunking...")
     await this.flaskService.displayChunked(this.review.review);
   }
 

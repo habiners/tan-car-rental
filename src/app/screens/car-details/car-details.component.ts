@@ -105,11 +105,9 @@ export class CarDetailsComponent implements OnInit {
     );
     let review: string = '';
     review = prompt("Would you like to review? Leave blank if you don't.", '');
-    console.log(review);
     if (review != '') {
-      console.log('Adding review...');
       let sentiment = await this.flaskService.getSentimentAnalysis(review);
-      this.carService.addReview(
+      await this.carService.addReview(
         this.car.carId.toString(),
         this.accountService.getCurrentUserCompname(),
         review,

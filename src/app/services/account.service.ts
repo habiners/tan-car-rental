@@ -19,13 +19,13 @@ export class AccountService {
     this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
     this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user != null) {
-        console.log('Logged in');
+        // console.log('Logged in');
         this.compName = await this.queryCurrentUserCompname();
         this.loggedUser = user;
         localStorage.setItem('user', JSON.stringify(user));
         this.loggedIn.next(true);
       } else {
-        console.log('Logged out');
+        // console.log('Logged out');
         this.loggedUser = null;
         localStorage.removeItem('user');
         this.loggedIn.next(false);

@@ -22,7 +22,6 @@ export class FlaskService {
 
   async displayChunked(input: string): Promise<void>{
     try {
-      console.log("FASFAS " + input);
       await this.httpClient.get('http://127.0.0.1:5002/chunker/' + input).toPromise()
     } catch (error) {
       console.log(error);
