@@ -1,4 +1,11 @@
 <div class="main-container">
-  <span class="reviewer"><strong>{{review.name}}</strong></span>
+  <div class="header-container">
+    <span class="reviewer"><strong>{{review.name}}</strong></span>
+    <button (click)="displayChunked()">Chunked</button>
+  </div>
+  <span class="stars">
+    Sentiment Rating:
+    <span *ngFor="let i of counter(review.rating)">★</span><span *ngFor="let i of counter(5-review.rating)">☆</span>
+  </span>
   <span class="review">{{review.review}}</span>
 </div>

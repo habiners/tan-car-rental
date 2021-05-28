@@ -32,7 +32,6 @@ export class AddCarComponent implements OnInit {
       nWheels: this.nWheels,
       ratePerHr: this.rph,
     };
-    console.log(car);
     this.carService.addCar(car);
     alert('Car was added successfully!');
 

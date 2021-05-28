@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Review } from '../../models/review';
+import { StarRatingComponent } from 'ng-starrating';
 
+import { FlaskService } from '../../services/flask.service';
+
+import { Review } from '../../models/review';
 @Component({
   selector: 'app-review-tile',
   templateUrl: './review-tile.component.html',
@@ -8,10 +11,18 @@ import { Review } from '../../models/review';
 })
 export class ReviewTileComponent implements OnInit {
 
-  constructor() { }
+  @Input() review: Review;
+  constructor(private flaskService: FlaskService) { }
 
   ngOnInit(): void {
+    this.review.rating
   }
 
-  @Input() review: Review;
+  async displayChunked(): Promise<void>{
+    await this.flaskService.displayChunked(this.review.review);
+  }
+
+  counter(i: number) {
+    return new Array(i);
+  }
 }

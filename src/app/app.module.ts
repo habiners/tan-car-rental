@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire';
@@ -24,6 +25,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ReviewTileComponent }from './components/review-tile/review-tile.component';
 
+import { RatingModule } from 'ng-starrating';
 import { environment } from 'src/environments/environment';
 
 @NgModule({
@@ -50,6 +52,8 @@ import { environment } from 'src/environments/environment';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    HttpClientModule,
+    RatingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

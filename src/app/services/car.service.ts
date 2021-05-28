@@ -108,12 +108,20 @@ export class CarService {
   }
 
   // getCarById(carId: number): Promise<DocumentSnapshot<Car>> { // Mu error cya for some reason
-  getCarById(carId: number): Promise<any> {
-    return this.db
+  // getCarById(carId: number): Promise<any> {
+  //   return this.db
+  //     .collection('car')
+  //     .withConverter(this.carConverter)
+  //     .doc(carId.toString())
+  //     .get();
+  // }
+  async getCarById(carId: number): Promise<Car> {
+    let car = await this.db
       .collection('car')
       .withConverter(this.carConverter)
       .doc(carId.toString())
       .get();
+    return car.data();
   }
 
   getUnrentedCars(): Promise<QuerySnapshot<Car>> {
@@ -159,13 +167,28 @@ export class CarService {
   async addReview(
     carId: string,
     name: string,
-    review: string
+    review: string,
+    sentiment: JSON
   ): Promise<boolean> {
     try {
+      // -1, 1
+      // 1, 5
+      // m = y2-y1 / x2-x1
+      // m = 5 - 1 / 1 + 1
+      // m = 4/2 or 2
+      // y = mx + b
+      // 5 = 2(1) + b
+      // b = 5 - 2
+      // b = 3
+
+      // y = 2x + 3
+
       let reviewObj = {
         uid: this.firebaseAuth.currentUser.uid,
         name: name,
         review: review,
+        sentiment: sentiment,
+        rating: Math.round(2 * sentiment['compound'] + 3),
       };
       await this.db
         .collection('car')
@@ -180,8 +203,10 @@ export class CarService {
     }
   }
 
-  async getReviews(carId: string): Promise<Review[]> {
+  async getReviews(carId: string): Promise<JSON> {
     let retrievedReviews: Review[] = [];
+    let sum: number = 0;
+    let jsonObj: any = {};
     try {
       let x = await this.db
         .collection('car')
@@ -192,12 +217,15 @@ export class CarService {
         retrievedReviews.push({
           name: doc.get('name'),
           review: doc.get('review'),
+          sentiment: doc.get('sentiment'),
+          rating: doc.get('rating'),
         });
+        sum += doc.get('rating');
       });
-      return retrievedReviews;
+      jsonObj = {reviews: retrievedReviews, aveRating: Math.round(sum / x.size)}
+      return jsonObj;
     } catch (error) {
       console.log(error);
-      return [];
+      return jsonObj;
     }
-  }
-}
+  }}
