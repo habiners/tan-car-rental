@@ -16,17 +16,17 @@ import { UserClient } from '../models/userClient';
 // https://stackoverflow.com/questions/48592656/firebase-auth-is-not-a-function
 export class AccountService {
   constructor(private fba: FirebaseApp) {
-    localStorage.s
     this.firebaseAuth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
     this.firebaseAuth.onAuthStateChanged(async (user) => {
       if (user != null) {
         console.log('Logged in');
         this.compName = await this.queryCurrentUserCompname();
+        this.loggedUser = user;
         localStorage.setItem('user', JSON.stringify(user));
-        this.loggedInOnce = true;
         this.loggedIn.next(true);
       } else {
         console.log('Logged out');
+        this.loggedUser = null;
         localStorage.setItem('user', null);
         this.loggedIn.next(false);
       }
@@ -38,7 +38,6 @@ export class AccountService {
   private signedInUser: UserClient;
   private compName: string = '';
   private loggedIn = new BehaviorSubject<boolean>(false);
-  public loggedInOnce = false;
   public loggedIn$ = this.loggedIn.asObservable();
   public loggedUser: firebase.User;
 
@@ -61,23 +60,25 @@ export class AccountService {
   }
 
   async signInAccount(email: string, password: string): Promise<void> {
-    // await this.firebaseAuth.signInWithEmailAndPassword(email, password);
-    this.firebaseAuth
-      .setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      .then(() => {
-        this.firebaseAuth.signInWithEmailAndPassword(email, password);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    await this.firebaseAuth.signInWithEmailAndPassword(email, password);
+    // this.firebaseAuth
+    //   .setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    //   .then(() => {
+    //     this.firebaseAuth.signInWithEmailAndPassword(email, password);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   }
 
   async signOutAccount(): Promise<void> {
+    localStorage.setItem('user', null);
     await this.firebaseAuth.signOut();
   }
 
-  getCurrentUser(): UserClient {
-    return this.signedInUser;
+
+  getLoggedUser(): firebase.User{
+    return this.loggedUser;
   }
 
   async queryCurrentUserCompname(): Promise<string> {
@@ -89,6 +90,7 @@ export class AccountService {
     completeName = docRef.get('firstname') + ' ' + docRef.get('lastname');
     return completeName;
   }
+
   getCurrentUserCompname(): string {
     return this.compName;
   }

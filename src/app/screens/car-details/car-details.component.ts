@@ -25,19 +25,24 @@ export class CarDetailsComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.car = await this.carService.getCarById(+this.route.snapshot.paramMap.get('id'));
+    this.car = await this.carService.getCarById(
+      +this.route.snapshot.paramMap.get('id')
+    );
     if (!this.isNoCar()) {
       this.updateTimes();
       this.querySuccessful = false;
     }
     let reviewObj = await this.carService.getReviews(this.car.carId.toString());
-    this.reviews = reviewObj['reviews'];
-    this.averageRating = reviewObj['aveRating'];
+    if (reviewObj) {
+      this.reviews = reviewObj['reviews'];
+      this.averageRating = isNaN(reviewObj['aveRating']) ? 0 : reviewObj['aveRating'];
+    }
   }
 
   car?: Car;
   reviews?: Review[];
-  averageRating: number = 0;
+  averageRating: number = 1;
+
   querySuccessful: boolean = true;
   placeholderImg: string = 'https://i.stack.imgur.com/y9DpT.jpg';
   formattedDateRented: string = '';
@@ -60,7 +65,7 @@ export class CarDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  rentCar(): void {
+  async rentCar(): Promise<void> {
     let hrsToRent: number = +prompt(
       'Please input number of hours to rent:',
       '1'
@@ -73,7 +78,7 @@ export class CarDetailsComponent implements OnInit {
     this.carService.rentCar(this.car, deadline);
     this.updateTimes();
     alert('Car rented successfuly!');
-    // this.ngOnInit();
+    this.ngOnInit();
   }
 
   async returnCar(): Promise<void> {
@@ -110,11 +115,11 @@ export class CarDetailsComponent implements OnInit {
         review,
         sentiment
       );
-      this.ngOnInit();
     }
+    this.ngOnInit();
   }
 
-  counter(i: number) {
-    return new Array(i);
+  counter(x: number) {
+    return new Array(x);
   }
 }

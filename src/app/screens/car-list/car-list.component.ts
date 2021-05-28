@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Car } from '../../models/car';
 import { CarService } from '../../services/car.service';
+import { AccountService } from '../../services/account.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-list',
@@ -8,9 +10,12 @@ import { CarService } from '../../services/car.service';
   styleUrls: ['./car-list.component.css'],
 })
 export class CarListComponent implements OnInit {
-  constructor(private carService: CarService) {
-
-  }
+  constructor(
+    private accountService: AccountService,
+    private ngZone: NgZone,
+    private router: Router,
+    private carService: CarService
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.carService.getAllCars().then((result) =>
